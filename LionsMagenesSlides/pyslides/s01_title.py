@@ -9,7 +9,7 @@ fast higher order methods to reconstruct interfaces as well as two strategies to
 presenting corners.
 """
 
-from config import *
+from LionsMagenesSlides.config import *
 from lib.utils import MySlide
 
 

@@ -2,19 +2,18 @@ import pathlib
 
 from manim import *  # or: from manimlib import *
 
-# ---------------------- Paths ---------------------- #
 presentation_dir = pathlib.Path(__file__).parent.parent.absolute()
+sys.path.insert(0, str(presentation_dir))
+from lib.utils import add_latex_file2preample
+
+# ---------------------- Paths ---------------------- #
 lib_dir = presentation_dir.joinpath("lib")
 source_dir = pathlib.Path(__file__).parent.absolute()
 pyslides_dir = source_dir.joinpath("pyslides")
 material_dir = source_dir.joinpath("Material")
 images_dir = material_dir.joinpath("images")
-main_media = source_dir.joinpath("media")
-main_tex = main_media.joinpath("Tex")
-
-sys.path.insert(0, str(presentation_dir))
-
-from lib.utils import add_latex_file2preample
+media_media = source_dir.joinpath("media")
+main_tex = media_media.joinpath("Tex")
 
 # this is needed to compile Tex equations outside construct method
 main_tex.mkdir(parents=True, exist_ok=True)

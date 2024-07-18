@@ -2,10 +2,11 @@ from pathlib import Path
 from typing import List, Union
 
 import numpy as np
+from matplotlib import pyplot as plt
+
 from manim import FadeOut, Integer, ReplacementTransform, Title, RIGHT, UP, index_labels, Group, VGroup, \
     Dot, Line, Rectangle, ManimColor, WHITE, MathTex, DecimalNumber, DOWN, TexTemplate
 from manim_slides.slide import Slide
-from matplotlib import pyplot as plt
 
 
 # ---------------------- Latex template ---------------------- #
