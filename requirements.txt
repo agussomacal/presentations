@@ -1,0 +1,4 @@
+manim
+manim-slides
+matplotlib
+numpy
