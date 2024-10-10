@@ -113,9 +113,8 @@ class InvPrbExamplesSlides(MySlide):
 
         # --------- second column ---------- #
         title = Title("Inverse problem", font_size=STITLE_FS)
-        layout = ConvergencePLotLayout(title)
         solution = ImageMobject(Path(f"{path_subcell}/solution")).scale_to_fit_height(1.5)
-        image = ImageMobject(Path(f"{path_subcell}/yoda.png")).scale_to_fit_height(1.5)
+        yoda_img = ImageMobject(Path(f"{path_subcell}/yoda.png")).scale_to_fit_height(1.5)
 
         # --------- measurements column ---------- #
         tex_z = MathTex(r"\ell(u)+\eta = z \in \mathbb{R}^m",
@@ -135,7 +134,7 @@ class InvPrbExamplesSlides(MySlide):
         solution_pointwise = ImageMobject(Path(f"{path_subcell}/solution_pointwise")).scale_to_fit_height(1.5)
         yoda_pointwise = ImageMobject(Path(f"{path_subcell}/yoda_pointwise")).scale_to_fit_height(1.5)
         solution_avg = ImageMobject(Path(f"{path_subcell}/solution_avg")).scale_to_fit_height(1.5)
-        image_avg = ImageMobject(Path(f"{path_subcell}/yoda_avg20.png")).scale_to_fit_height(1.5)
+        yoda_avg = ImageMobject(Path(f"{path_subcell}/yoda_avg20.png")).scale_to_fit_height(1.5)
 
         # --------- reconstruction column ---------- #
         se = Text("State estimation", font_size=SMALL_FS, slant=ITALIC, color=COLOR_SOLUTION, should_center=True)
@@ -173,8 +172,8 @@ class InvPrbExamplesSlides(MySlide):
         # uimage.next_to(text_image, DOWN, buff=BUFF_HALF)
         # image.next_to(Group(text_image, uimage), RIGHT, buff=buff_horizontal)
         # image_group = Group(uimage, image, text_image)
-        image.next_to(text_image, RIGHT, buff=buff_horizontal)
-        image_group = Group(image, text_image)
+        yoda_img.next_to(text_image, RIGHT, buff=buff_horizontal)
+        image_group = Group(yoda_img, text_image)
         image_group.next_to(group_diffusion, DOWN, buff=BUFF_HALF)
         image_rectangle = SurroundingRectangle(image_group, color=IMAGE_COLOR, corner_radius=0.2)
 
@@ -189,14 +188,14 @@ class InvPrbExamplesSlides(MySlide):
         yoda_pointwise.set_y(solution_pointwise.get_y() + 1.325)
 
         tex_avg.next_to(Group(yoda_pointwise, solution_pointwise), DOWN, buff=BUFF_HALF)
-        image_avg.next_to(solution_avg, RIGHT, buff=buff_horizontal)
-        Group(image_avg, solution_avg).next_to(tex_avg, DOWN, buff=BUFF_HALF)
+        yoda_avg.next_to(solution_avg, RIGHT, buff=buff_horizontal)
+        Group(yoda_avg, solution_avg).next_to(tex_avg, DOWN, buff=BUFF_HALF)
 
-        (Group(tex_pointwise, solution_pointwise, tex_avg, image_avg, solution_avg)
+        (Group(tex_pointwise, solution_pointwise, tex_avg, yoda_avg, solution_avg)
          .next_to(tex_z, DOWN, buff=BUFF_HALF))
 
         hsol = get_h_group(solution_avg, 10)
-        himg = get_h_group(image_avg, 20)
+        himg = get_h_group(yoda_avg, 20)
 
         # inverse problems
         se.next_to(title, DOWN, buff=BUFF_HALF).shift(ThreeColumns_dx * RIGHT)
@@ -258,7 +257,7 @@ class InvPrbExamplesSlides(MySlide):
         # uelement = get_sub_objects(uimage, [0])
         self.play(
             # FadeIn(image, target_position=uelement.get_center(), scale=0.25),
-            FadeIn(image),
+            FadeIn(yoda_img),
             Create(image_rectangle)
         )
 
@@ -286,7 +285,7 @@ class InvPrbExamplesSlides(MySlide):
         self.next_slide()
         self.play(
             FadeIn(solution_avg),
-            FadeIn(image_avg),
+            FadeIn(yoda_avg),
             FadeIn(hsol, himg)
         )
 
@@ -308,4 +307,5 @@ class InvPrbExamplesSlides(MySlide):
             Write(peeq),
         )
 
-        return {"tex_z": tex_z, "seeq": seeq}
+        return {"tex_z": tex_z, "seeq": seeq, "rec_image": rec_image, "yoda_img": yoda_img,
+                "yoda_pointwise": yoda_pointwise, "yoda_avg": yoda_avg}

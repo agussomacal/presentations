@@ -1,5 +1,8 @@
+from pathlib import Path
+
 from config import *
 from lib.utils import MySlide, get_sub_objects
+from pyslides.s04_recontrucrion_from_cell_averages import path_subcell
 
 EQ_FONT_SIZE = SMALL_FS
 cite_ch2 = Tex("[A. Cohen, M. Dolbeault, O. Mula, A. Somacal, 2023]", font_size=CITATION_FONT_SIZE)
@@ -65,8 +68,28 @@ class NearOptimalitySlides(MySlide):
 
         nop = near_optimality_property.copy().next_to(title, DOWN, buff=BUFF_HALF).shift(ThreeColumns_dx / 2 * RIGHT)
 
-        tex_z = objects_from_previous_slides.pop("tex_z")
-        seeq = objects_from_previous_slides.pop("seeq")
+        # ----- from previous slides ----- #
+        if len(objects_from_previous_slides):
+            tex_z = objects_from_previous_slides.pop("tex_z")
+            seeq = objects_from_previous_slides.pop("seeq")
+            yoda_rec_img_old = objects_from_previous_slides.pop("rec_image")
+            yoda_img_old = objects_from_previous_slides.pop("yoda_img")
+            yoda_pointwise_old = objects_from_previous_slides.pop("yoda_pointwise")
+            yoda_avg_old = objects_from_previous_slides.pop("yoda_avg")
+        else:
+            yoda_rec_img_old = ImageMobject(Path(f"{path_subcell}/yoda.png")).scale_to_fit_height(1.5)
+            yoda_img_old = ImageMobject(Path(f"{path_subcell}/yoda.png")).scale_to_fit_height(1.5)
+            yoda_pointwise_old = ImageMobject(Path(f"{path_subcell}/yoda_pointwise")).scale_to_fit_height(1.5)
+            yoda_avg_old = ImageMobject(Path(f"{path_subcell}/yoda_avg20.png")).scale_to_fit_height(1.5)
+            tex_z = MathTex(r"\ell(u)+\eta = z \in \mathbb{R}^m",
+                            substrings_to_isolate=["z", "u"],
+                            tex_to_color_map={"z": COLOR_MEASUREMENTS, "u": COLOR_SOLUTION},
+                            font_size=MEDIUM_FS)
+            seeq = MathTex(r"\tilde{u} = R(z) \;\; R : \mathbb{R}^m \rightarrow V",
+                           substrings_to_isolate=["z", r"\tilde{u}"],
+                           tex_to_color_map={"z": COLOR_MEASUREMENTS, r"\tilde{u}": COLOR_APPROXIMATION},
+                           font_size=MEDIUM_FS)
+
         measurements = MathTex(r"\ell(u)+\eta = z \in \mathbb{R}^m",
                                substrings_to_isolate=["z", "u"],
                                tex_to_color_map={"z": COLOR_MEASUREMENTS, "u": COLOR_SOLUTION},
@@ -75,6 +98,16 @@ class NearOptimalitySlides(MySlide):
                      substrings_to_isolate=["z", r"\tilde{u}"],
                      tex_to_color_map={"z": COLOR_MEASUREMENTS, r"\tilde{u}": COLOR_APPROXIMATION},
                      font_size=EQ_FONT_SIZE).next_to(measurements, DOWN, BUFF_HALF)
+
+        height_of_img = BUFF_HALF
+        yoda_rec_img = ImageMobject(Path(f"{path_subcell}/yoda.png")).scale_to_fit_height(height_of_img)
+        yoda_img = ImageMobject(Path(f"{path_subcell}/yoda.png")).scale_to_fit_height(height_of_img)
+        yoda_pointwise = ImageMobject(Path(f"{path_subcell}/yoda_pointwise")).scale_to_fit_height(height_of_img)
+        yoda_avg = ImageMobject(Path(f"{path_subcell}/yoda_avg20.png")).scale_to_fit_height(height_of_img)
+        yoda_pointwise.next_to(measurements, LEFT, buff=BUFF_QUARTER)
+        yoda_avg.next_to(yoda_pointwise, LEFT, buff=BUFF_QUARTER)
+        yoda_rec_img.next_to(rz, LEFT, buff=BUFF_QUARTER)
+
         best_fit = best_fit_estimator.copy().next_to(rz, DOWN, buff=NOP_BUFF)
         best_fit2 = best_fit.copy()
 
@@ -266,16 +299,20 @@ class NearOptimalitySlides(MySlide):
         #   inverse problem
         self.next_slide()
         self.play(
-            self.fade_out_old_elements(exept=[seeq, tex_z]),
+            self.fade_out_old_elements(exept=[seeq, tex_z, yoda_img, yoda_avg, yoda_pointwise]),
             self.update_slide_number(),
             self.update_main_title(title),
             ReplacementTransform(seeq, rz),
             ReplacementTransform(tex_z, measurements),
+            ReplacementTransform(yoda_avg_old, yoda_avg),
+            ReplacementTransform(yoda_pointwise_old, yoda_pointwise),
+            ReplacementTransform(yoda_rec_img_old, yoda_rec_img),
             # FadeIn(measurements, rz)
             Create(udot),
             Create(utex),
         )
 
+        # return {}
         # -------------- -------------- -------------- #
         #   Best fit estimator
         title = Title(r"Best fit estimator", font_size=STITLE_FS)
