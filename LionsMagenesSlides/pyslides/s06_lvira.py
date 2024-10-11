@@ -1,7 +1,7 @@
 from collections import namedtuple
 
 from config import *
-from pyslides.s03_near_optimality import best_fit_estimator, near_optimality_property, \
+from pyslides.s03a_near_optimality import best_fit_estimator, near_optimality_property, \
     text_continuity, text_inverse_stability, condition_inverse, text_near_optimality_property, condition_lipschitz, \
     best_fit_estimator_ell1, near_optimality_property_L1
 from pyslides.s04_recontrucrion_from_cell_averages import ConvergencePLotLayout, \

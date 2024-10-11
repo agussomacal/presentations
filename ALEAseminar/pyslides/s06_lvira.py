@@ -1,14 +1,14 @@
 from collections import namedtuple
 
-from config import *
-from pyslides.s03_near_optimality import best_fit_estimator, near_optimality_property, \
+from ALEAseminar.config import *
+from ALEAseminar.pyslides.s03a_near_optimality import best_fit_estimator, near_optimality_property, \
     text_continuity, text_inverse_stability, condition_inverse, text_near_optimality_property, condition_lipschitz, \
     best_fit_estimator_ell1, near_optimality_property_L1
-from pyslides.s04_recontrucrion_from_cell_averages import ConvergencePLotLayout, \
+from ALEAseminar.pyslides.s04_recontrucrion_from_cell_averages import ConvergencePLotLayout, \
     latex4average_measurements, get_original_data_and_ground_truth, get_reconstructions
-from pyslides.s05_piecewise_constant import LVIRA_COLOR, LVIRA_DATA, \
+from ALEAseminar.pyslides.s05_piecewise_constant import LVIRA_COLOR, LVIRA_DATA, \
     create_convergence_plot_objects
-from pyslides.s08_aeros import get_scale_from_desired_width, GRID_COLOR, CELL_T_COLOR, \
+from ALEAseminar.pyslides.s08_aeros import get_scale_from_desired_width, GRID_COLOR, CELL_T_COLOR, \
     grid_averages
 from lib.utils import MySlide, get_shift_from_xy_coordinate, get_sub_objects, create_grid, cmap_value2manimcolor, \
     create_grid_of_colored_rectangles

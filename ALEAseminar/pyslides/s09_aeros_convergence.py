@@ -1,9 +1,9 @@
-from config import *
-from pyslides.s04_recontrucrion_from_cell_averages import ConvergencePLotLayout, \
+from ALEAseminar.config import *
+from ALEAseminar.pyslides.s04_recontrucrion_from_cell_averages import ConvergencePLotLayout, \
     get_original_data_and_ground_truth, get_reconstructions
-from pyslides.s05_piecewise_constant import create_convergence_plot_objects, \
+from ALEAseminar.pyslides.s05_piecewise_constant import create_convergence_plot_objects, \
     AEROS_4_DATA, AEROS_2_DATA
-from pyslides.s08_aeros import AEROS_COLOR
+from ALEAseminar.pyslides.s08_aeros import AEROS_COLOR
 from lib.utils import MySlide
 
 

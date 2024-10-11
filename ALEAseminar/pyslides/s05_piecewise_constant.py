@@ -1,7 +1,8 @@
 from collections import namedtuple
 
-from config import *
-from pyslides.s04_recontrucrion_from_cell_averages import ConvergencePLotLayout, path_subcell
+from ALEAseminar.config import *
+from ALEAseminar.pyslides.s04_recontrucrion_from_cell_averages import ConvergencePLotLayout
+from ALEAseminar.support_data import path_subcell
 from lib.utils import MySlide, get_sub_objects
 
 ModelData = namedtuple("ModelData", ["name", "x_values", "y_values", "y_values_fit", "rate", "color"])

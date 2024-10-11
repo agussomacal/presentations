@@ -2,9 +2,10 @@ from pathlib import Path
 
 from matplotlib import pyplot as plt
 
-from config import *
-from pyslides.s04_recontrucrion_from_cell_averages import path_subcell, ConvergencePLotLayout
-from pyslides.s08_aeros import aeros_stencil_animation_objects, STENCIL_STROKE_WIDTH, \
+from ALEAseminar.config import *
+from ALEAseminar.pyslides.s04_recontrucrion_from_cell_averages import ConvergencePLotLayout
+from ALEAseminar.support_data import path_subcell
+from ALEAseminar.pyslides.s08_aeros import aeros_stencil_animation_objects, STENCIL_STROKE_WIDTH, \
     STENCIL_COLOR, get_scale_from_desired_width, GRID_COLOR, CELL_T_COLOR
 
 from lib.utils import MySlide, create_grid, create_column_grid, create_column_rectangles

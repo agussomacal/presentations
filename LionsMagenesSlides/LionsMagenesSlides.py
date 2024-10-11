@@ -1,6 +1,6 @@
 from pyslides.s01_title import TitleSlide
 from pyslides.s02_inverse_problems_examples import InvPrbExamplesSlides
-from pyslides.s03_near_optimality import NearOptimalitySlides
+from pyslides.s03a_near_optimality import NearOptimalitySlides
 from pyslides.s04_recontrucrion_from_cell_averages import InterfaceReconstructionSlides
 from pyslides.s05_piecewise_constant import PiecewiseConstantSlides
 from pyslides.s06_lvira import LVIRASlides

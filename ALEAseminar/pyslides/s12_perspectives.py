@@ -1,4 +1,4 @@
-from config import *
+from ALEAseminar.config import *
 from lib.utils import MySlide
 
 
@@ -23,7 +23,7 @@ class PerspectivesSlides(MySlide):
             "[A. Cohen, M. Dolbeault, O. Mula, A. Somacal, Nonlinear approximation spaces for inverse problems, Analysis and Applications, 2023]",
             font_size=CITATION_FONT_SIZE, tex_template=cite_template)
         cite_ch2 = Tex(
-            "[A. Cohen, O. Mula, A. Somacal, High order recovery of geometric interfaces from cell-average data, ArXiv, 2024]",
+            "[A. Cohen, O. Mula, A. Somacal, High order recovery of geometric interfaces from cell-average data, 2024]",
             font_size=CITATION_FONT_SIZE, tex_template=cite_template)
         cite_pbdw = Tex(
             "PBDW [Y. Maday, A. T. Patera, J. D. Penn, M. Yano, A parameterized‐background data‐weak approach to variational data assimilation: formulation, analysis, and application to acoustics, International Journal for Numerical Methods in Engineering, 2015]",

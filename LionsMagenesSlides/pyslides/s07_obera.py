@@ -1,5 +1,5 @@
 from config import *
-from pyslides.s03_near_optimality import best_fit_estimator
+from pyslides.s03a_near_optimality import best_fit_estimator
 from pyslides.s04_recontrucrion_from_cell_averages import ConvergencePLotLayout, \
     get_original_data_and_ground_truth, get_reconstructions
 from pyslides.s05_piecewise_constant import LVIRA_COLOR, \

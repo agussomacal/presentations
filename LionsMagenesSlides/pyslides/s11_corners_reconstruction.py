@@ -1,5 +1,5 @@
 from config import *
-from pyslides.s03_near_optimality import best_fit_estimator
+from pyslides.s03a_near_optimality import best_fit_estimator
 from pyslides.s04_recontrucrion_from_cell_averages import ConvergencePLotLayout
 from pyslides.s08_aeros import STENCIL_COLOR
 from pyslides.s10_corners import path_corners_images

@@ -1,11 +1,10 @@
-import os
 from pathlib import Path
 
-from config import *
+from ALEAseminar.config import *
+from ALEAseminar.support_data import path_subcell
 from lib.utils import MySlide, shift_to, move_and_scale
 
 num_cells_per_dim = 10
-path_subcell = Path(material_dir, "SubCell")
 
 
 class ConvergencePLotLayout:

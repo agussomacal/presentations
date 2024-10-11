@@ -1,10 +1,10 @@
-from config import *
-from pyslides.s03_near_optimality import best_fit_estimator
-from pyslides.s04_recontrucrion_from_cell_averages import ConvergencePLotLayout, \
+from ALEAseminar.config import *
+from ALEAseminar.pyslides.s03a_near_optimality import best_fit_estimator
+from ALEAseminar.pyslides.s04_recontrucrion_from_cell_averages import ConvergencePLotLayout, \
     get_original_data_and_ground_truth, get_reconstructions
-from pyslides.s05_piecewise_constant import LVIRA_COLOR, \
+from ALEAseminar.pyslides.s05_piecewise_constant import LVIRA_COLOR, \
     create_convergence_plot_objects, QUADRATIC_COLOR, CIRCLE_COLOR, VERTEX_COLOR, QUARTIC_COLOR, OBERA_DATA
-from pyslides.s06_lvira import grid_curve_and_averages, drop_cell_T
+from ALEAseminar.pyslides.s06_lvira import grid_curve_and_averages, drop_cell_T
 from lib.utils import MySlide
 
 OBERA_COLOR = LVIRA_COLOR

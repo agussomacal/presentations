@@ -1,8 +1,8 @@
 from pathlib import Path
 
-from config import *
+from ALEAseminar.config import *
 from lib.utils import MySlide, get_sub_objects
-from pyslides.s04_recontrucrion_from_cell_averages import path_subcell
+from ALEAseminar.support_data import path_subcell, min_n, subdivisions
 
 EQ_FONT_SIZE = SMALL_FS
 cite_ch2 = Tex("[A. Cohen, M. Dolbeault, O. Mula, A. Somacal, 2023]", font_size=CITATION_FONT_SIZE)
@@ -48,13 +48,6 @@ best_fit_estimator_ell1 = MathTex(r"\tilde{u}=\argmin_{\vv \in V_n} \|z-\ell(\vv
                                                     "z": COLOR_MEASUREMENTS},
                                   font_size=EQ_FONT_SIZE)
 
-# best_fit_estimator = MathTex(r"\tilde{u}=R(z)=\underset{v\in V_n}{\text{argmin}} \|z-\ell(v)\|}",
-#                              substrings_to_isolate=[r"\tilde{u}", "v", "z"],
-#                              tex_to_color_map={r"\tilde{u}": APPROXIMATION_COLOR, "v": APPROXIMATION_COLOR,
-#                                                "z": MEASUREMENTS_COLOR},
-#                              font_size=EQ_FONT_SIZE)
-
-
 cite_pbdw = Tex("[Y. Maday, A. T. Patera, J. D. Penn, M. Yano, 2015]",
                 font_size=CITATION_FONT_SIZE)
 
@@ -75,12 +68,12 @@ class NearOptimalitySlides(MySlide):
             yoda_rec_img_old = objects_from_previous_slides.pop("rec_image")
             yoda_img_old = objects_from_previous_slides.pop("yoda_img")
             yoda_pointwise_old = objects_from_previous_slides.pop("yoda_pointwise")
-            yoda_avg_old = objects_from_previous_slides.pop("yoda_avg")
+            # yoda_avg_old = objects_from_previous_slides.pop("yoda_avg")
         else:
-            yoda_rec_img_old = ImageMobject(Path(f"{path_subcell}/yoda.png")).scale_to_fit_height(1.5)
+            yoda_rec_img_old = ImageMobject(Path(f"{path_subcell}/yoda_approx_{min_n}.png")).scale_to_fit_height(1.5)
             yoda_img_old = ImageMobject(Path(f"{path_subcell}/yoda.png")).scale_to_fit_height(1.5)
             yoda_pointwise_old = ImageMobject(Path(f"{path_subcell}/yoda_pointwise")).scale_to_fit_height(1.5)
-            yoda_avg_old = ImageMobject(Path(f"{path_subcell}/yoda_avg20.png")).scale_to_fit_height(1.5)
+            # yoda_avg_old = ImageMobject(Path(f"{path_subcell}/yoda_avg20.png")).scale_to_fit_height(1.5)
             tex_z = MathTex(r"\ell(u)+\eta = z \in \mathbb{R}^m",
                             substrings_to_isolate=["z", "u"],
                             tex_to_color_map={"z": COLOR_MEASUREMENTS, "u": COLOR_SOLUTION},
@@ -99,17 +92,33 @@ class NearOptimalitySlides(MySlide):
                      tex_to_color_map={"z": COLOR_MEASUREMENTS, r"\tilde{u}": COLOR_APPROXIMATION},
                      font_size=EQ_FONT_SIZE).next_to(measurements, DOWN, BUFF_HALF)
 
-        height_of_img = BUFF_HALF
-        yoda_rec_img = ImageMobject(Path(f"{path_subcell}/yoda.png")).scale_to_fit_height(height_of_img)
-        yoda_img = ImageMobject(Path(f"{path_subcell}/yoda.png")).scale_to_fit_height(height_of_img)
-        yoda_pointwise = ImageMobject(Path(f"{path_subcell}/yoda_pointwise")).scale_to_fit_height(height_of_img)
-        yoda_avg = ImageMobject(Path(f"{path_subcell}/yoda_avg20.png")).scale_to_fit_height(height_of_img)
-        yoda_pointwise.next_to(measurements, LEFT, buff=BUFF_QUARTER)
-        yoda_avg.next_to(yoda_pointwise, LEFT, buff=BUFF_QUARTER)
-        yoda_rec_img.next_to(rz, LEFT, buff=BUFF_QUARTER)
-
         best_fit = best_fit_estimator.copy().next_to(rz, DOWN, buff=NOP_BUFF)
         best_fit2 = best_fit.copy()
+
+        height_of_img = BUFF_HALF
+        yoda_rec = ImageMobject(Path(f"{path_subcell}/yoda_approx_{min_n}.png")).scale_to_fit_height(height_of_img)
+        yoda_img = ImageMobject(Path(f"{path_subcell}/yoda.png")).scale_to_fit_height(height_of_img)
+        yoda_pointwise = ImageMobject(Path(f"{path_subcell}/yoda_pointwise")).scale_to_fit_height(height_of_img)
+        # yoda_avg = ImageMobject(Path(f"{path_subcell}/yoda_avg20.png")).scale_to_fit_height(height_of_img)
+
+        yoda_img.next_to(measurements, LEFT, buff=3 / 2 * BUFF_HALF)
+        yoda_pointwise.next_to(measurements, RIGHT, buff=3 / 2 * BUFF_HALF)
+        # yoda_avg.next_to(yoda_pointwise, LEFT, buff=BUFF_QUARTER)
+        (yoda_rec.next_to(Group(rz, best_fit), LEFT, buff=BUFF_QUARTER)
+         .set_y((rz.get_y(DOWN) + best_fit.get_y(UP)) / 2).set_x(yoda_img.get_x()))
+
+        yoda_rec_pointwise = ImageMobject(
+            Path(f"{path_subcell}/yoda_approx_pointwise_{min_n}.png")).scale_to_fit_height(
+            height_of_img)
+        yoda_diff_pointwise = ImageMobject(
+            Path(f"{path_subcell}/yoda_approx_diff_pointwise_{min_n}.png")).scale_to_fit_height(
+            height_of_img)
+        yoda_diff = ImageMobject(Path(f"{path_subcell}/yoda_approx_diff_{min_n}.png")).scale_to_fit_height(
+            height_of_img)
+
+        yoda_rec_pointwise.set_x(yoda_pointwise.get_x()).set_y(yoda_rec.get_y())
+        yoda_diff_pointwise.next_to(get_sub_objects(best_fit, [-9, -1]).get_center(), DOWN, BUFF_HALF)
+        yoda_diff.next_to(get_sub_objects(nop, [0, 6]).get_center(), DOWN, BUFF_HALF)
 
         # -------------- PBDW vs nonlinear -------------- #
         hilbert_cond = Tex(r"\begin{itemize}"
@@ -281,8 +290,11 @@ class NearOptimalitySlides(MySlide):
         vtex = SingleStringMathTex("P_{V_n}u", color=COLOR_LINEAR).next_to(vdot, DR)
         uttex = SingleStringMathTex(r"\tilde u", color=COLOR_APPROXIMATION).next_to(utdot, UL, buff=0.1)
 
-        line_dist = DashedLine(udot.get_center(), vdot.get_center(), color=[COLOR_SOLUTION, COLOR_APPROXIMATION],
-                               stroke_width=1).set_color_by_gradient(COLOR_SOLUTION, COLOR_APPROXIMATION)
+        line_dist = DashedLine(udot.get_center(), vdot.get_center(), color=[COLOR_SOLUTION, COLOR_LINEAR],
+                               stroke_width=1).set_color_by_gradient(COLOR_SOLUTION, COLOR_LINEAR)
+
+        line_dist2tu = DashedLine(udot.get_center(), utdot.get_center(), color=[COLOR_SOLUTION, COLOR_APPROXIMATION],
+                                  stroke_width=1).set_color_by_gradient(COLOR_SOLUTION, COLOR_APPROXIMATION)
 
         # circ = Circle(radius=1.2 * np.sqrt(np.sum((udot.get_center() - utdot.get_center()) ** 2))).move_to(udot)
         # circ = (radius=1.2 * np.sqrt(np.sum((udot.get_center() - utdot.get_center()) ** 2))).move_to(udot)
@@ -295,24 +307,28 @@ class NearOptimalitySlides(MySlide):
                    )
         # circ = VGroup(udot.copy(), circ).set_fill(color=COLOR_APPROXIMATION, opacity=0.2)
 
+        line_c = Line(udot.get_center(), circ.get_corner(UR), color=[COLOR_APPROXIMATION, COLOR_APPROXIMATION],
+                      stroke_width=1).set_color_by_gradient(COLOR_APPROXIMATION, COLOR_APPROXIMATION)
+
+        c_text = SingleStringMathTex("C", color=COLOR_APPROXIMATION).move_to(line_c).shift(0.15 * UR)
+
         # -------------- -------------- -------------- #
         #   inverse problem
         self.next_slide()
         self.play(
-            self.fade_out_old_elements(exept=[seeq, tex_z, yoda_img, yoda_avg, yoda_pointwise]),
+            self.fade_out_old_elements(
+                exept=[seeq, tex_z, yoda_img_old, yoda_pointwise_old, yoda_rec_img_old]),
             self.update_slide_number(),
             self.update_main_title(title),
             ReplacementTransform(seeq, rz),
             ReplacementTransform(tex_z, measurements),
-            ReplacementTransform(yoda_avg_old, yoda_avg),
+            # ReplacementTransform(yoda_avg_old, yoda_avg),
             ReplacementTransform(yoda_pointwise_old, yoda_pointwise),
-            ReplacementTransform(yoda_rec_img_old, yoda_rec_img),
+            ReplacementTransform(yoda_rec_img_old, yoda_rec),
+            ReplacementTransform(yoda_img_old, yoda_img),
             # FadeIn(measurements, rz)
-            Create(udot),
-            Create(utex),
         )
 
-        # return {}
         # -------------- -------------- -------------- #
         #   Best fit estimator
         title = Title(r"Best fit estimator", font_size=STITLE_FS)
@@ -320,15 +336,68 @@ class NearOptimalitySlides(MySlide):
         self.play(
             self.update_main_title(title),
             Write(best_fit),
-            Create(m_lin),
-            Create(map_group["tex Vn space"]),
         )
 
         self.next_slide()
         self.play(
+            FadeIn(yoda_rec_pointwise)
+        )
+
+        self.next_slide()
+        self.play(
+            FadeIn(yoda_diff_pointwise)
+        )
+
+        self.next_slide()
+        imcpy = yoda_img.copy()
+        self.add(imcpy)
+        self.play(
+            Create(udot),
+            Create(utex),
+        )
+        self.play(
+            FadeOut(imcpy, target_position=udot.get_center(), scale=0.2),
+        )
+
+        self.next_slide()
+        imcpy = yoda_rec.copy()
+        self.add(imcpy)
+        self.play(
+            Create(m_lin),
+            Create(map_group["tex Vn space"]),
+        )
+        self.play(
             Create(utdot),
             Create(uttex),
         )
+        self.play(
+            FadeOut(imcpy, target_position=utdot.get_center(), scale=0.2),
+        )
+
+        # for n in subdivisions[1:]:
+        #     yoda_rec_new = ImageMobject(Path(f"{path_subcell}/yoda_approx_{n}.png")).scale_to_fit_height(
+        #         height_of_img).move_to(yoda_rec)
+        #     yoda_rec_pointwise_new = ImageMobject(
+        #         Path(f"{path_subcell}/yoda_approx_pointwise_{n}.png")).scale_to_fit_height(
+        #         height_of_img).move_to(yoda_rec_pointwise)
+        #     yoda_diff_pointwise_new = ImageMobject(
+        #         Path(f"{path_subcell}/yoda_approx_diff_pointwise_{n}.png")).scale_to_fit_height(
+        #         height_of_img).move_to(yoda_diff_pointwise)
+        #     yoda_diff_new = ImageMobject(Path(f"{path_subcell}/yoda_approx_diff_{n}.png")).scale_to_fit_height(
+        #         height_of_img).move_to(yoda_diff)
+        #
+        #     # self.next_slide()
+        #     self.play(
+        #         ReplacementTransform(yoda_rec, yoda_rec_new),
+        #         ReplacementTransform(yoda_diff, yoda_diff_new),
+        #         ReplacementTransform(yoda_rec_pointwise, yoda_rec_pointwise_new),
+        #         ReplacementTransform(yoda_diff_pointwise, yoda_diff_pointwise_new),
+        #     )
+        #
+        #     yoda_rec = yoda_rec_new
+        #     yoda_rec_pointwise = yoda_rec_pointwise_new
+        #     yoda_diff_pointwise = yoda_diff_pointwise_new
+        #     yoda_diff = yoda_diff_new
 
         # -------------- -------------- -------------- #
         #   Near optimality property
@@ -341,6 +410,17 @@ class NearOptimalitySlides(MySlide):
 
         self.next_slide()
         self.play(
+            FadeIn(yoda_diff)
+        )
+
+        self.next_slide()
+        self.play(
+            Create(line_dist2tu),
+            FadeOut(yoda_diff, target_position=line_dist2tu.get_center(), scale=0.2),
+        )
+
+        self.next_slide()
+        self.play(
             Create(vdot),
             Create(vtex),
             Create(line_dist),
@@ -348,14 +428,16 @@ class NearOptimalitySlides(MySlide):
 
         self.next_slide()
         self.play(
-            Create(circ)
+            Create(circ),
+            Create(line_c),
+            Write(c_text)
         )
 
         # -------------- -------------- -------------- #
         #   PBDW
         title = Title(r"Parameterized Background Data Weak", font_size=STITLE_FS)
         self.next_slide()
-        self.play(self.update_main_title(title), FadeIn(hilbert_cond))
+        self.play(self.update_main_title(title), FadeIn(hilbert_cond), FadeOut(yoda_diff_pointwise))
         self.next_slide()
         self.play(FadeIn(vnlinear_cond))
         self.next_slide()
