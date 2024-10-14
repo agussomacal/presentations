@@ -1,8 +1,22 @@
 from pathlib import Path
 
+from ALEAseminar.Concepts.NOPProof.NOPProof import ConceptNOPProof
 from ALEAseminar.config import *
 from lib.utils import MySlide, get_sub_objects
 from ALEAseminar.support_data import path_subcell, min_n, subdivisions
+
+# ------ style objects ------ #
+font_size = EQ_FONT_SIZE
+style_dict = {
+    "tex_to_color_map": {
+        r"\uu": COLOR_SOLUTION,
+        r"\tu": COLOR_APPROXIMATION,
+        r"\vv": COLOR_APPROXIMATION,
+        "z": COLOR_MEASUREMENTS
+    },
+    "substrings_to_isolate": [r"\uu", r"\tu", r"v"],
+    "font_size": font_size
+}
 
 EQ_FONT_SIZE = SMALL_FS
 cite_ch2 = Tex("[A. Cohen, M. Dolbeault, O. Mula, A. Somacal, 2023]", font_size=CITATION_FONT_SIZE)
@@ -251,19 +265,11 @@ class NearOptimalitySlides(MySlide):
         get_sub_objects(mu_def_2, [10, 11]).set_color(NON_LINEAR_COLOR)
 
         nop_noise = MathTex(
-            r"\|u-\tilde{u} \|_V \leq (1+2\alpha_Z \mu_Z) \|u-P_{V_n} u\|_V + (1+2\beta \mu_Z) \|\eta\|_p",
-            # substrings_to_isolate=[r"\tilde{u}", r"\vv", "z"],
-            # tex_to_color_map={r"\tilde{u}": APPROXIMATION_COLOR, r"\vv": APPROXIMATION_COLOR,
-            #                   "z": MEASUREMENTS_COLOR},
+            r"\|u-\tu \|_V \leq (1+2\alpha_Z \mu_Z) \|\uu-P_{V_n} \uu\|_V + (1+2\beta \mu_Z) \|\eta\|_p",
             font_size=EQ_FONT_SIZE).move_to(nop)
         get_sub_objects(nop_noise, [1, 18, 23]).set_color(COLOR_SOLUTION)
+        get_sub_objects(nop_noise, [20, 21, 22, 23]).set_color(COLOR_LINEAR)
         get_sub_objects(nop_noise, [3, 4]).set_color(COLOR_APPROXIMATION)
-
-        theorem = (Tex(r"\textbf{Theorem} The \textit{best fit estimator} $\tilde{u}$ satisfies"
-                       r"$$\|u-\tilde{u} \| \leq C_1 \|u-P_{V_n} u\| + C_2 \|\eta\|_p$$"
-                       r"where $C_1=1+2\alpha_Z \mu$ and $C_2=1+2\beta \mu.$",
-                       font_size=EQ_FONT_SIZE).next_to(nop, DOWN)
-                   .set_y(Group(lip_continuity, inv_cond, inv_stab, lip_cond).get_y()))
 
         # -------------- -------------- -------------- #
         #   near optimality plot
@@ -556,8 +562,62 @@ class NearOptimalitySlides(MySlide):
             FadeOut(mutext.copy(), target_position=mu_def.get_center())
         )
         self.play(FadeOut(mu_def), FadeIn(mu_def_2))
-
+        # ========== ========== NOP proof ========== ========== #
         title = Title(r"Near optimality property for non-linear spaces", font_size=STITLE_FS)
+        nop_plot = Group(m_lin, m_nnonlin, Vn, udot, vdot, utdot, uttex, uttex, vtex, line_dist2, line_dist2tu, circ,
+                         line_c, c_text)
+        manim_constants = Group(mu_def_2, alpha_def, beta_def)
+        cite_ch2.next_to(nop_noise, DOWN)
+        nopproof = ConceptNOPProof()
+        nopproof.group.next_to(cite_ch2, DOWN).set_x(nop_noise.get_x(LEFT), direction=LEFT)
+
+        # ------ auxiliary objects ------ #
+        vertical_buffer = BUFF_QUARTER
+        v_norm = get_sub_objects(new_nop, num_chars=list(range(7)))
+        v_norm_new_line = get_sub_objects(list(nopproof.nop_proof_mobjs.values())[0], num_chars=list(range(7)))
+        braceline_up = Line(v_norm.get_corner(DL), v_norm.get_corner(DR),
+                            color=COLOR_SOLUTION, stroke_width=1).shift(
+            vertical_buffer / 4 * DOWN)
+        braceline_down = Line(v_norm_new_line.get_corner(UL),
+                              v_norm_new_line.get_corner(UR), color=COLOR_SOLUTION,
+                              stroke_width=1).shift(vertical_buffer / 4 * UP)
+
         self.next_slide()
-        self.play(self.update_main_title(title), self.update_slide_number(),
-                  Write(nop_noise), FadeOut(new_nop), FadeIn(cite_ch2.next_to(nop_noise, DOWN)))
+        self.play(
+            self.update_main_title(title), self.update_slide_number(),
+            nop_plot.animate.shift(UL),
+            manim_constants.animate.scale(0.75).move_to(Vn.get_corner(RIGHT), aligned_edge=LEFT).shift(UP),
+            Create(braceline_up),
+            Create(braceline_down),
+        )
+        self.play(
+            *nopproof.get_action_001_start_nop_proof()
+        )
+        self.next_slide()
+        self.play(
+            *nopproof.get_action_002_triangular_inequality_in_V()
+        )
+        self.next_slide()
+        self.play(
+            *nopproof.get_action_003_inverse_stability()
+        )
+        self.next_slide()
+        self.play(
+            *nopproof.get_action_004_triangular_inequality_in_Z()
+        )
+        self.next_slide()
+        self.play(
+            *nopproof.get_action_005_best_fit_estimator_property()
+        )
+        self.next_slide()
+        self.play(
+            *nopproof.get_action_006_definition_of_z()
+        )
+        self.next_slide()
+        self.play(
+            *nopproof.get_action_007_lipschitz()
+        )
+
+        self.next_slide()
+        self.play(Write(nop_noise), FadeOut(new_nop), FadeIn(cite_ch2),
+                  braceline_up.animate.set_x(nop_noise.get_x(direction=LEFT), direction=LEFT),)

@@ -1,3 +1,5 @@
+import pathlib
+
 from ALEAseminar.pyslides.s01_title import TitleSlide
 from ALEAseminar.pyslides.s02_inverse_problems_examples import InvPrbExamplesSlides
 from ALEAseminar.pyslides.s03a_near_optimality import NearOptimalitySlides
@@ -44,3 +46,22 @@ class ALEASeminarSlides(*slides):
         objects_from_previous_slides = s.construct(self)
         for s in slides[1:]:
             objects_from_previous_slides = s.construct(self, objects_from_previous_slides)
+
+
+if __name__ == '__main__':
+    LOW_QUALITY = True
+    quality = "-ql" if LOW_QUALITY else ""
+    import subprocess
+
+    # overrides latex configuration from config
+    path2file = pathlib.Path(__file__).parent
+    name_of_presentation = __file__.split(".")[0].split("/")[-1]
+
+
+    print("Name of presentation: ", name_of_presentation)
+    print("---------- Compiling manim slides ----------")
+    subprocess.run(f"manim {quality} {name_of_presentation}.py {name_of_presentation}".split(" "))
+    print("---------- Creating html ----------")
+    subprocess.run(f"manim-slides convert {name_of_presentation} {name_of_presentation}.html --open".split(" "))
+    print("---------- Creating PDF ----------")
+    subprocess.run(f"manim-slides convert {name_of_presentation} {name_of_presentation}.pdf".split(" "))

@@ -1,76 +1,91 @@
-import pathlib
 from collections import OrderedDict
 
 from ALEAseminar.config import *
-
 from lib.utils import MySlide, get_sub_objects
-
-# overrides latex configuration from config
-path2file = pathlib.Path(__file__).parent
-name_of_presentation = __file__.split(".")[0].split("/")[-1]
-media_media = path2file.joinpath("media")
-main_tex = media_media.joinpath("Tex")
-# this is needed to compile Tex equations outside construct method
-main_tex.mkdir(parents=True, exist_ok=True)
-LatexTemplate = add_latex_file2preample(TexTemplate(documentclass="\documentclass[preview]{standalone}"),
-                                        source_dir=source_dir)
-MathTex.set_default(tex_template=LatexTemplate, font_size=EQ_FONT_SIZE)
-Tex.set_default(tex_template=LatexTemplate, font_size=EQ_FONT_SIZE)
-SingleStringMathTex.set_default(tex_template=LatexTemplate, font_size=EQ_FONT_SIZE)
 
 
 # ------ create objects ------ #
 class ConceptNOPProof:
-    def __init__(self):
-        # ------ init objects ------ #
-        font_size = EQ_FONT_SIZE
-        self.nop_proof_mobjs = OrderedDict()
-        self.nop_proof_mobjs["approx_norm"] = MathTex(r"\|u - \tu\|_V", font_size=font_size)
-        self.nop_proof_mobjs["triangular_inequality_in_V"] = MathTex(r"\|u - \tu\|_V \leq \|u - v\|_V + \|v - \tu\|_V",
-                                                                     font_size=font_size)
-        self.nop_proof_mobjs["inverse_stability"] = MathTex(
-            r"\|u - \tu\|_V \leq \|u - v\| + \mu_Z\|\ell(v) - \ell(\tu)\|_Z", font_size=font_size)
-        self.nop_proof_mobjs["triangular_inequality_in_Z"] = MathTex(
-            r"\|\ell(v) - \ell(\tu)\|_Z \leq \|z - \ell(v)\|_Z + \|z - \ell(\tu)\|_Z", font_size=font_size)
-        self.nop_proof_mobjs["best_fit_estimator_property"] = MathTex(
-            r"\|\ell(v) - \ell(\tu)\|_Z \leq 2\|z - \ell(v)\|_Z", font_size=font_size)
-        self.nop_proof_mobjs["definition_of_z"] = MathTex(
-            r"\|z - \ell(v)\|_Z \leq \|\ell(u) - \ell(v)\|_Z + \|\eta\|_Z", font_size=font_size)
-        self.nop_proof_mobjs["lipschitz"] = MathTex(r"\|z - \ell(v)\|_Z \leq \alpha_Z\|u-v\|_V + \beta_z\|\eta\|_p",
-                                                    font_size=font_size)
-        self.nop_proof_mobjs["nop"] = MathTex(
-            r"\|u - \tu\|_V \leq (1+2\alpha_Z\mu_Z)\|u-v\|_V + 2\beta_z\mu_Z\|\eta\|_p", font_size=font_size)
+    @property
+    def group(self):
+        return VDict(self.nop_proof_mobjs)
 
+    def __init__(self):
         # ------ style objects ------ #
+        font_size = EQ_FONT_SIZE
+        style_dict = {
+            "tex_to_color_map": {
+                r"\uu": COLOR_SOLUTION,
+                r"\tu": COLOR_APPROXIMATION,
+                r"\vv": COLOR_APPROXIMATION,
+                "z": COLOR_MEASUREMENTS
+            },
+            "substrings_to_isolate": [r"\uu", r"\tu", r"v"],
+            "font_size": font_size
+        }
+
+        # ------ init objects ------ #
+        self.nop_proof_mobjs = OrderedDict()
+        self.nop_proof_mobjs["approx_norm"] = MathTex(r"\|\uu - \tu\|_V", **style_dict)
+        self.nop_proof_mobjs["triangular_inequality_in_V"] = MathTex(
+            r"\|\uu - \tu\|_V \leq \|\uu - \vv\|_V + \|\vv - \tu\|_V", **style_dict)
+        self.nop_proof_mobjs["inverse_stability"] = MathTex(
+            r"\|\uu - \tu\|_V \leq \|\uu - \vv\| + \mu_Z\|\ell(\vv) - \ell(\tu)\|_Z", **style_dict)
+        # new line
+        self.nop_proof_mobjs["triangular_inequality_in_Z"] = MathTex(
+            r"\|\ell(\vv) - \ell(\tu)\|_Z \leq \|z - \ell(\vv)\|_Z + \|z - \ell(\tu)\|_Z", **style_dict)
+        self.nop_proof_mobjs["best_fit_estimator_property"] = MathTex(
+            r"\|\ell(\vv) - \ell(\tu)\|_Z \leq 2\|z - \ell(\vv)\|_Z", **style_dict)
+        # new line
+        self.nop_proof_mobjs["definition_of_z"] = MathTex(
+            r"\|z - \ell(\vv)\|_Z \leq \|\ell(\uu) - \ell(\vv)\|_Z + \|\eta\|_Z", **style_dict)
+        self.nop_proof_mobjs["lipschitz"] = MathTex(
+            r"\|z - \ell(\vv)\|_Z \leq \alpha_Z\|\uu-\vv\|_V + \beta_z\|\eta\|_p", **style_dict)
+        self.nop_proof_mobjs["nop"] = MathTex(
+            r"\|\uu - \tu\|_V \leq (1+2\alpha_Z\mu_Z)\|\uu-\vv\|_V + 2\beta_z\mu_Z\|\eta\|_p", **style_dict)
 
         # ------ relative positioning ------ #
         vertical_buffer = BUFF_QUARTER
-        self.nop_proof_mobjs["triangular_inequality_in_V"].next_to(self.nop_proof_mobjs["approx_norm"], DOWN,
-                                                                   aligned_edge=LEFT, buff=vertical_buffer)
+        self.nop_proof_mobjs["triangular_inequality_in_V"].move_to(self.nop_proof_mobjs["approx_norm"],
+                                                                   aligned_edge=LEFT)
         self.nop_proof_mobjs["inverse_stability"].move_to(self.nop_proof_mobjs["triangular_inequality_in_V"],
                                                           aligned_edge=LEFT)
-        z_norm = get_sub_objects(self.nop_proof_mobjs["inverse_stability"], num_chars=list(range(-12, 0)))
-        self.nop_proof_mobjs["triangular_inequality_in_Z"].next_to(z_norm, DOWN, aligned_edge=LEFT,
+        # new line
+        self.nop_proof_mobjs["triangular_inequality_in_Z"].next_to(self.nop_proof_mobjs["inverse_stability"], DOWN,
                                                                    buff=vertical_buffer)
         self.nop_proof_mobjs["best_fit_estimator_property"].move_to(self.nop_proof_mobjs["triangular_inequality_in_Z"],
                                                                     aligned_edge=LEFT)
+        # new line
         zv_diff = get_sub_objects(self.nop_proof_mobjs["best_fit_estimator_property"], num_chars=list(range(-9, 0)))
         self.nop_proof_mobjs["definition_of_z"].next_to(zv_diff, DOWN, aligned_edge=LEFT, buff=vertical_buffer)
         self.nop_proof_mobjs["lipschitz"].move_to(self.nop_proof_mobjs["definition_of_z"], aligned_edge=LEFT)
         self.nop_proof_mobjs["nop"].move_to(self.nop_proof_mobjs["approx_norm"], aligned_edge=LEFT)
 
+        # ------ auxiliary objects ------ #
+        z_norm = get_sub_objects(self.nop_proof_mobjs["inverse_stability"], num_chars=list(range(-13, 0)))
+        z_norm_new_line = get_sub_objects(self.nop_proof_mobjs["triangular_inequality_in_Z"], num_chars=list(range(13)))
+        self.nop_proof_mobjs["first_braceline_up"] = Line(z_norm.get_corner(DL), z_norm.get_corner(DR),
+                                                          color=YELLOW, stroke_width=1).shift(
+            vertical_buffer / 4 * DOWN)
+        self.nop_proof_mobjs["first_braceline_down"] = Line(z_norm_new_line.get_corner(UL),
+                                                            z_norm_new_line.get_corner(UR), color=YELLOW,
+                                                            stroke_width=1).shift(vertical_buffer / 4 * UP)
+
     def get_action_001_start_nop_proof(self):
         return Write(self.nop_proof_mobjs["approx_norm"]),
 
     def get_action_002_triangular_inequality_in_V(self):
-        return Write(self.nop_proof_mobjs["triangular_inequality_in_V"]),
+        return (Unwrite(self.nop_proof_mobjs["approx_norm"], reverse=False),
+                Write(self.nop_proof_mobjs["triangular_inequality_in_V"]),)
 
     def get_action_003_inverse_stability(self):
         return (Write(self.nop_proof_mobjs["inverse_stability"]),
                 Unwrite(self.nop_proof_mobjs["triangular_inequality_in_V"], reverse=False),)
 
     def get_action_004_triangular_inequality_in_Z(self):
-        return Write(self.nop_proof_mobjs["triangular_inequality_in_Z"]),
+        return (Write(self.nop_proof_mobjs["triangular_inequality_in_Z"]),
+                Create(self.nop_proof_mobjs["first_braceline_up"]),
+                Create(self.nop_proof_mobjs["first_braceline_down"]))
 
     def get_action_005_best_fit_estimator_property(self):
         return (Unwrite(self.nop_proof_mobjs["triangular_inequality_in_Z"], reverse=False),
@@ -84,7 +99,10 @@ class ConceptNOPProof:
                 Write(self.nop_proof_mobjs["lipschitz"]),)
 
     def get_action_008_nop(self):
-        return Unwrite(self.nop_proof_mobjs["approx_norm"], reverse=False), Write(self.nop_proof_mobjs["nop"]),
+        return (Unwrite(self.nop_proof_mobjs["inverse_stability"], reverse=False),
+                Uncreate(self.nop_proof_mobjs["first_braceline_up"]),
+                Uncreate(self.nop_proof_mobjs["first_braceline_down"]),
+                Write(self.nop_proof_mobjs["nop"]),)
 
 
 class NOPProof(MySlide):
@@ -130,6 +148,19 @@ if __name__ == '__main__':
     LOW_QUALITY = True
     quality = "-ql" if LOW_QUALITY else ""
     import subprocess
+
+    # overrides latex configuration from config
+    path2file = pathlib.Path(__file__).parent
+    name_of_presentation = __file__.split(".")[0].split("/")[-1]
+    media_media = path2file.joinpath("media")
+    main_tex = media_media.joinpath("Tex")
+    # this is needed to compile Tex equations outside construct method
+    main_tex.mkdir(parents=True, exist_ok=True)
+    LatexTemplate = add_latex_file2preample(TexTemplate(documentclass="\documentclass[preview]{standalone}"),
+                                            source_dir=source_dir)
+    MathTex.set_default(tex_template=LatexTemplate, font_size=EQ_FONT_SIZE)
+    Tex.set_default(tex_template=LatexTemplate, font_size=EQ_FONT_SIZE)
+    SingleStringMathTex.set_default(tex_template=LatexTemplate, font_size=EQ_FONT_SIZE)
 
     print("Name of presentation: ", name_of_presentation)
     print("---------- Compiling manim slides ----------")
