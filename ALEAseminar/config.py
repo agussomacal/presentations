@@ -48,12 +48,7 @@ SMALL_FS = 25
 CITATION_FONT_SIZE = SMALL_FS / 2
 EQ_FONT_SIZE = SMALL_FS
 
-CENTER_Y = (Title("bla", font_size=STITLE_FS).get_y(DOWN) - H) / 2
-ThreeRows_dy = (Title("bla", font_size=STITLE_FS).get_y(DOWN) - CENTER_Y) * 2 / 3
-
 # ---------------------- Latex template ---------------------- #
-
-
 LatexTemplate = add_latex_file2preample(TexTemplate(documentclass="\documentclass[preview]{standalone}"),
                                         source_dir=source_dir)
 MathTex.set_default(tex_template=LatexTemplate, font_size=EQ_FONT_SIZE)

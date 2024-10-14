@@ -14,107 +14,8 @@ from lib.utils import MySlide, get_shift_from_xy_coordinate, get_sub_objects, cr
     create_grid_of_colored_rectangles
 
 
-# def get_vn_element(grid_shape, function, x0=0, y0=0, num_points4shading_areas=1000, curve_color=WHITE, scale=1,
-#                    cmap="coolwarm"):
-#     x_range = [x0 - grid_shape[1] / 2, x0 + grid_shape[1] / 2]
-#     y_range = [y0 - grid_shape[0] / 2, y0 + grid_shape[0] / 2]
-#     x_points = np.linspace(x_range[0], x_range[1], num_points4shading_areas)
-#
-#     y_points = function(x_points)
-#     valid_idx = (y_points >= y_range[0]) & (y_points <= y_range[1])
-#     valid_x_points = x_points[valid_idx]
-#     valid_y_points = y_points[valid_idx]
-#     valid_points = namedtuple("pointxy", "x y")(valid_x_points, valid_y_points)
-#
-#     # assumes the curve doesn't cross two times UP and DOWN
-#     mo_curve = FunctionGraph(
-#         function,
-#         x_range=[np.min(valid_points.x), np.max(valid_points.x)],
-#         stroke_width=4 * scale,
-#         color=curve_color,
-#         fill_opacity=0
-#     )
-#
-#     mo_lower_part = Polygon(
-#         *np.array(
-#             [(x, y, 0) for x, y in zip(valid_points.x, valid_points.y)] +
-#             ([(x_range[1], min((y_range[1], function(x_range[1]))), 0),
-#               (x_range[1], y_range[0], 0)]
-#              if function(x_range[1]) > y_range[0] else []) +
-#             ([(x_range[0], y_range[0], 0),
-#               (x_range[0], min((y_range[0], function(x_range[0]))), 0)]
-#              if function(x_range[0]) > y_range[0] else [])
-#         ),
-#         color=cmap_value2manimcolor(1.0, cmap=cmap),
-#         fill_opacity=0.2,
-#         stroke_opacity=0
-#     )
-#     mo_upper_part = Polygon(
-#         *np.array(
-#             [(x, y, 0) for x, y in zip(valid_points.x, valid_points.y)] +
-#             ([(x_range[1], max((y_range[1], function(x_range[1]))), 0),
-#               (x_range[1], y_range[1], 0)]
-#              if function(x_range[1]) < y_range[1] else []) +
-#             ([(x_range[0], y_range[1], 0),
-#               (x_range[0], max((y_range[0], function(x_range[0]))), 0)]
-#              if function(x_range[0]) < y_range[1] else [])
-#         ),
-#         color=cmap_value2manimcolor(0.0, cmap=cmap),
-#         fill_opacity=0.2,
-#         stroke_opacity=0
-#     )
-#
-#     return Group(mo_curve, mo_lower_part, mo_upper_part)
-#
-#
-# def get_avg_elements(grid_shape, function, cmap="coolwarm"):
-#     avg_values = grid_averages(grid_shape, function, N=100)
-#     mo_avg_colors, mo_values = create_grid_of_colored_rectangles(avg_values, cmap=cmap, fill_opacity=0.5,
-#                                                                  stroke_width=0)
-#     mo_grid_avg = create_grid(shape=grid_shape, stroke_width=1, color=GRID_COLOR).move_to(mo_avg_colors)
-#     return Group(mo_avg_colors, mo_values, mo_grid_avg)
-#
-#
-# def grid_curve_and_averages(position, function, grid_shape=(7, 5), cmap="coolwarm", width=2, x0=0, y0=0,
-#                             curve_color=WHITE, num_points4shading_areas=1000, add_updater=True):
-#     scale = get_scale_from_desired_width(width=width, grid_shape=grid_shape)
-#
-#     vn_element = get_vn_element(grid_shape, function, num_points4shading_areas=num_points4shading_areas,
-#                                 curve_color=curve_color, x0=x0, y0=y0, scale=scale)
-#     avg_element = get_avg_elements(grid_shape, function, cmap=cmap)
-#     avg_element.next_to(vn_element, RIGHT, buff=BUFF_ONE)
-#
-#     Group(vn_element, avg_element).scale(scale).move_to(position)
-#
-#     vn_center = vn_element.get_center()
-#     if add_updater:
-#         # new_vn_element = get_vn_element(grid_shape, function, num_points4shading_areas=num_points4shading_areas,
-#         #                                 curve_color=curve_color, x0=x0, y0=y0, scale=scale).scale(scale).move_to(
-#         #     position)
-#         for i, e in enumerate(vn_element):
-#             e.add_updater(
-#                 lambda m: m.become(
-#                     get_vn_element(grid_shape, function, num_points4shading_areas=num_points4shading_areas,
-#                                    curve_color=curve_color, x0=x0, y0=y0, scale=scale).scale(scale).move_to(vn_center)[
-#                         i])
-#             )
-#
-#         # vn_element.add_updater(
-#         #     lambda m: .scale(scale).move_to(
-#         #             vn_element.get_center()
-#         #     )
-#         # )
-#
-#         # avg_element.add_updater(
-#         #     lambda m: get_avg_elements(grid_shape, function, cmap=cmap).scale(scale).move_to(avg_element.get_center()
-#         #     )
-#         # )
-#
-#     return vn_element, avg_element
-
-
 def grid_curve_and_averages(position, function, grid_shape=(7, 5), cmap="coolwarm", width=2, x0=0, y0=0,
-                            curve_color=WHITE, num_points4shading_areas=1000, add_updater=True):
+                            curve_color=WHITE, num_points4shading_areas=1000, add_updater=True, value_up=0):
     scale = get_scale_from_desired_width(width=width, grid_shape=grid_shape)
     mo_grid = create_grid(shape=grid_shape, stroke_width=1, color=GRID_COLOR)
 
@@ -141,16 +42,6 @@ def grid_curve_and_averages(position, function, grid_shape=(7, 5), cmap="coolwar
         color=curve_color,
         fill_opacity=0
     )
-    # mo_curve = FunctionGraph(
-    #                 # function,
-    #                 # x_range=[np.min(get_valid_points().x), np.max(get_valid_points().x)],
-    #                 lambda x: function((x + mo_grid.get_center()[0]) / scale) * scale,
-    #                 x_range=[np.min(get_valid_points().x) * scale - mo_grid.get_center()[0],
-    #                          np.max(get_valid_points().x) * scale - mo_grid.get_center()[0]],
-    #                 stroke_width=4 * scale,
-    #                 color=curve_color,
-    #                 fill_opacity=0
-    #             )
 
     mo_lower_part = Polygon(
         *np.array(
@@ -162,7 +53,7 @@ def grid_curve_and_averages(position, function, grid_shape=(7, 5), cmap="coolwar
               (x_range[0], min((y_range[0], function(x_range[0]))), 0)]
              if function(x_range[0]) > y_range[0] else [])
         ),
-        color=cmap_value2manimcolor(1.0, cmap="coolwarm"),
+        color=cmap_value2manimcolor(float(1 - value_up), cmap="coolwarm"),
         fill_opacity=0.2,
         stroke_opacity=0
     )
@@ -176,35 +67,23 @@ def grid_curve_and_averages(position, function, grid_shape=(7, 5), cmap="coolwar
               (x_range[0], max((y_range[0], function(x_range[0]))), 0)]
              if function(x_range[0]) < y_range[1] else [])
         ),
-        color=cmap_value2manimcolor(0.0, cmap="coolwarm"),
+        color=cmap_value2manimcolor(float(value_up), cmap="coolwarm"),
         fill_opacity=0.2,
         stroke_opacity=0
     )
     avg_values = grid_averages(grid_shape, function, N=100)
+    avg_values = avg_values if value_up == 0 else (1 - avg_values)
     mo_avg_colors, mo_values = create_grid_of_colored_rectangles(avg_values, cmap=cmap, fill_opacity=0.5,
                                                                  stroke_width=0)
-    avg_colors_center_before_scaling = mo_avg_colors.get_center()
-    values_center_before_scaling = mo_values.get_center()
 
     Group(mo_avg_colors, mo_values).next_to(mo_grid, RIGHT, buff=BUFF_ONE)
     mo_grid_avg = create_grid(shape=grid_shape, stroke_width=1, color=GRID_COLOR).move_to(mo_avg_colors)
     mo_cell_T_avg = mo_cell_T.copy().move_to(mo_avg_colors)
 
-    grid_center_before = mo_grid.get_center()
-    curve_center_before_scaling = mo_curve.get_center()
-    up_center_before_scaling = mo_upper_part.get_center()
-    lp_center_before_scaling = mo_lower_part.get_center()
     group = Group(mo_grid, mo_curve, mo_lower_part, mo_upper_part, mo_cell_T, txt_cell_T, mo_grid_avg, mo_avg_colors,
                   mo_values, mo_cell_T_avg).scale(scale)
-    curve_center_after_scaling = mo_curve.get_center()
-    up_center_after_scaling = mo_upper_part.get_center()
-    lp_center_after_scaling = mo_lower_part.get_center()
-    avg_colors_center_after_scaling = mo_avg_colors.get_center()
-    values_center_after_scaling = mo_values.get_center()
-
     d_shift = position - group.get_edge_center(UP)
     group.shift(d_shift)
-    # grid_center_after = mo_grid.get_center()
 
     if add_updater:
         mo_curve.add_updater(
@@ -212,18 +91,9 @@ def grid_curve_and_averages(position, function, grid_shape=(7, 5), cmap="coolwar
                 FunctionGraph(
                     function,
                     x_range=[np.min(get_valid_points().x), np.max(get_valid_points().x)],
-                    # lambda x: function((x + mo_grid.get_center()[0]) / scale) * scale,
-                    # x_range=[np.min(get_valid_points().x) * scale - mo_grid.get_center()[0],
-                    #          np.max(get_valid_points().x) * scale - mo_grid.get_center()[0]],
                     stroke_width=4 * scale,
                     color=curve_color,
                     fill_opacity=0
-                    # ).scale(scale).shift(d_shift, curve_center_after_scaling - curve_center_before_scaling)
-                    # ).scale(scale).shift(d_shift, curve_center_after_scaling - curve_center_before_scaling)
-                    # .set_x(0, direction=LEFT).move_to(mo_grid.get_edge_center(LEFT), aligned_edge=LEFT)
-                    # .shift(function(np.min(get_valid_points().x))) * scale*UP) #.set_y((function(np.min(get_valid_points().x))) * scale * UP, direction=LEFT)
-                    # .scale(scale).set_x(0, direction=LEFT).set_y(0, direction=LEFT).move_to(mo_grid.get_edge_center(LEFT)+(function(np.min(get_valid_points().x))) * scale * UP, aligned_edge=LEFT)
-                    # ).scale(scale).set_x(0).move_to(mo_grid.get_center()).shift((function(x0) + y0) * scale * UP)
                 ).scale(scale).set_x(mo_grid.get_x(RIGHT if function(x_range[1]) >= function(x_range[0]) else LEFT),
                                      direction=(UR if function(x_range[1]) >= function(x_range[0]) else UL))
                 .set_y(mo_grid.get_y(), direction=(UR if function(x_range[1]) >= function(x_range[0]) else UL))
@@ -247,7 +117,6 @@ def grid_curve_and_averages(position, function, grid_shape=(7, 5), cmap="coolwar
                     color=cmap_value2manimcolor(1.0, cmap="coolwarm"),
                     fill_opacity=0.2,
                     stroke_opacity=0
-                    # ).scale(scale).shift(d_shift, lp_center_after_scaling - lp_center_before_scaling)
                 ).scale(scale).set_x(0, direction=DOWN).set_y(0, direction=DOWN).move_to(mo_grid.get_edge_center(DOWN),
                                                                                          aligned_edge=DOWN)
             )
@@ -267,7 +136,6 @@ def grid_curve_and_averages(position, function, grid_shape=(7, 5), cmap="coolwar
                     color=cmap_value2manimcolor(0.0, cmap="coolwarm"),
                     fill_opacity=0.2,
                     stroke_opacity=0
-                    # ).scale(scale).shift(d_shift, up_center_after_scaling - up_center_before_scaling)
                 ).scale(scale).set_x(0, direction=UP).set_y(0, direction=UP).move_to(mo_grid.get_edge_center(UP),
                                                                                      aligned_edge=UP)
             )
@@ -293,9 +161,6 @@ def grid_curve_and_averages(position, function, grid_shape=(7, 5), cmap="coolwar
 
 
 def drop_cell_T(gca):
-    # return VGroup(gca["curve"], gca["grid"], gca["grid_avg"],
-    #              gca["lower_part"], gca["upper_part"], gca["avg_colors"],
-    #              gca["avg_values"])
     return VDict(
         {"grid": gca["grid"], "curve": gca["curve"], "upper_part": gca["upper_part"], "lower_part": gca["lower_part"],
          "grid_avg": gca["grid_avg"], "avg_colors": gca["avg_colors"], "avg_values": gca["avg_values"]})
@@ -342,9 +207,16 @@ class LVIRASlides(MySlide):
         group_curve_element = drop_cell_T(
             grid_curve_and_averages(group_vn_element.get_edge_center(DOWN) + BUFF_HALF * DOWN, function,
                                     grid_shape=(3, 3), cmap="coolwarm", width=2)[0])
-        # group_curve_element = Group(*grid_curve_and_averages(
-        #     group_vn_element.get_edge_center(DOWN) + BUFF_HALF * DOWN, function, grid_shape=(3, 3), cmap="coolwarm",
-        #     width=2, x0=0, y0=0, curve_color=WHITE, num_points4shading_areas=1000, add_updater=True))
+
+        m2 = 0
+        b2 = 0.
+        linear_function2 = lambda x: b2 + m2 * x
+        group_vn_element2 = drop_cell_T(
+            grid_curve_and_averages(best_fit.get_edge_center(DOWN) + BUFF_HALF * DOWN + 3 * LEFT, linear_function2,
+                                    grid_shape=(3, 3), cmap="coolwarm", width=2, value_up=1,
+                                    add_updater=False)[0]).move_to(
+            group_curve_element)
+
         tex_u = Tex(r"Unknown\\$u$").next_to(group_curve_element, LEFT, buff=BUFF_HALF)
         tex_z = Tex(r"$z\in \R^m$\\ Observed\\ averages").next_to(group_curve_element, RIGHT, buff=BUFF_HALF)
         get_sub_objects(tex_z, [0]).set_color(COLOR_MEASUREMENTS)
@@ -352,8 +224,6 @@ class LVIRASlides(MySlide):
 
         group_vn_element.add({"tex_v": tex_v, "tex_ell": tex_ell})
         group_curve_element.add({"tex_u": tex_u, "tex_z": tex_z})
-        # group_vn_element.add(tex_v, tex_ell)
-        # group_curve_element.add(tex_u, tex_z)
 
         # E.G. Puckett, A volume-of-fluid interface tracking algorithm with applications to computing shock wave refraction,
         #  in: H. Dwyer (Ed.), Proceedings of the Fourth International Symposium on Computational Fluid Dynamics, Davis, CA, 1991, pp. 933–938.
@@ -490,7 +360,20 @@ class LVIRASlides(MySlide):
             ReplacementTransform(lip_cond, new_condition_lipschitz)
         )
 
+        # -------------- -------------- -------------- #
+        #   new condition inverse
         self.next_slide()
+        self.remove(group_curve_element)
+        self.remove(approx_curve)
+        self.play(
+            FadeIn(group_vn_element2)
+        )
+
+        self.next_slide()
+        self.play(
+            b.animate.set_value(0.0),
+            m.animate.set_value(0.0),
+        )
         new_condition_inverse = MathTex(
             r"\|u-v\|_{L^1} \leq \frac{3}{2}h^2 \|\ell(u)-\ell(v) \|_{\ell^1}, \;\; u,v \in V_n",
             substrings_to_isolate=["v", r"\ell", "u"],

@@ -3,6 +3,7 @@ from pathlib import Path
 from matplotlib import pyplot as plt
 
 from ALEAseminar.config import *
+from ALEAseminar.pyslides.s01_title import CENTER_Y
 from ALEAseminar.pyslides.s04_recontrucrion_from_cell_averages import ConvergencePLotLayout
 from ALEAseminar.support_data import path_subcell
 from ALEAseminar.pyslides.s08_aeros import aeros_stencil_animation_objects, STENCIL_STROKE_WIDTH, \

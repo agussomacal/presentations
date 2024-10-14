@@ -1,4 +1,5 @@
 from ALEAseminar.config import *
+from ALEAseminar.pyslides.s01_title import CENTER_Y
 from ALEAseminar.pyslides.s04_recontrucrion_from_cell_averages import ConvergencePLotLayout
 from lib.utils import MySlide, create_grid, create_column_grid, cmap_value2manimcolor, \
     create_grid_of_colored_rectangles, create_column_rectangles

@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from ALEAseminar.config import *
+from ALEAseminar.pyslides.s01_title import CENTER_Y
 from ALEAseminar.support_data import path_subcell, min_n
 from lib.utils import MySlide, get_sub_objects
 

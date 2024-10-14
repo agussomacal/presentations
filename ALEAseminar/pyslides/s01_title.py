@@ -8,9 +8,13 @@ capabilities of non-linear families and use it to prove that LVIRA is a second o
 fast higher order methods to reconstruct interfaces as well as two strategies to deal with non-smooth interfaces
 presenting corners.
 """
+from manim import Title, DOWN
 
 from ALEAseminar.config import *
+from ALEAseminar.config import STITLE_FS, H
 from lib.utils import MySlide
+
+CENTER_Y = (Title("bla", font_size=STITLE_FS).get_y(DOWN) - H) / 2
 
 
 class TitleSlide(MySlide):
