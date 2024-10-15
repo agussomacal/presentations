@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from ALEAseminar.config import *
-from ALEAseminar.pyslides.s03a_near_optimality import best_fit_estimator
+from ALEAseminar.pyslides.s03_near_optimality import best_fit_estimator
 from ALEAseminar.pyslides.s04_recontrucrion_from_cell_averages import ConvergencePLotLayout
 from ALEAseminar.pyslides.s08_aeros import STENCIL_COLOR
 from ALEAseminar.pyslides.s10_corners import path_corners_images

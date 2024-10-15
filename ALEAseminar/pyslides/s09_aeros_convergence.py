@@ -19,7 +19,7 @@ class AEROSConvergenceSlides(MySlide):
         #     models=[PIECEWISE_DATA, LVIRA_DATA, OBERA_DATA, AEROS_2_DATA, AEROS_4_DATA], layout=layout)
         plot_group_obera = create_convergence_plot_objects("OBERA", layout=layout)
 
-        citation = Text("[A. Cohen, O. Mula, A. Somacal, ArXiv, 2024]",
+        citation = Text("[A. Cohen, O. Mula, A. Somacal, ESAIM, 2024]",
                         font_size=CITATION_FONT_SIZE, color=AEROS_2_DATA.color).set_x(plot_group_obera.get_x()).set_y(
             -H + BUFF_HALF)
 

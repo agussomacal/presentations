@@ -1,11 +1,11 @@
 from ALEAseminar.config import *
-from ALEAseminar.pyslides.s03a_near_optimality import best_fit_estimator
+from ALEAseminar.pyslides.s03_near_optimality import best_fit_estimator
 from ALEAseminar.pyslides.s04_recontrucrion_from_cell_averages import ConvergencePLotLayout, \
     get_original_data_and_ground_truth, get_reconstructions
 from ALEAseminar.pyslides.s05_piecewise_constant import LVIRA_COLOR, \
     create_convergence_plot_objects, QUADRATIC_COLOR, CIRCLE_COLOR, VERTEX_COLOR, QUARTIC_COLOR, OBERA_DATA
 from ALEAseminar.pyslides.s06_lvira import grid_curve_and_averages, drop_cell_T
-from lib.utils import MySlide
+from lib.utils import MySlide, get_sub_objects
 
 OBERA_COLOR = LVIRA_COLOR
 
@@ -16,21 +16,8 @@ class OBERASlides(MySlide):
         title = Title(r"Higher order", font_size=STITLE_FS)
         layout = ConvergencePLotLayout(title, shift=UP)
 
-        # if len(objects_from_previous_slides) > 0:
-        #     exp_citation = objects_from_previous_slides["exp_citation"]
-        #     plot_group_lvira = objects_from_previous_slides["plot_group"]
-        # else:
-        #     # grid, x_label, y_label, points, graphs, order, plot_group = create_convergence_plot_objects(
-        #     #     models=[PIECEWISE_DATA, LVIRA_DATA], layout=layout)
-        #     plot_group_lvira = create_convergence_plot_objects("LVIRA", layout=layout)
-        #
-        #     exp_citation = Text("[A. Cohen, M. Dolbeault, O. Mula, A. Somacal, 2023]\n"
-        #                         "[A. Cohen, O. Mula, A. Somacal, 2024]",
-        #                         font_size=CITATION_FONT_SIZE, color=LVIRA_COLOR).set_x(plot_group_lvira.get_x()).set_y(
-        #         -H + BUFF_HALF)
-
-        # -------------- -------------- -------------- #
-        #   OBERA
+        # # -------------- -------------- -------------- #
+        # #   OBERA
         obera = Tex(r"Optimization Based Edge Reconstruction Algorithm", font_size=STITLE_FS,
                     substrings_to_isolate=["O", "B", "E", "R", "A"],
                     tex_to_color_map={"O": OBERA_COLOR, "B": OBERA_COLOR, "E": OBERA_COLOR, "R": OBERA_COLOR,
@@ -40,7 +27,6 @@ class OBERASlides(MySlide):
             self.fade_out_old_elements(),
             self.update_main_title(title),
             self.update_slide_number(),
-            # FadeOut(exp_citation, plot_group_lvira),
             Write(obera)
         )
 
@@ -49,7 +35,6 @@ class OBERASlides(MySlide):
         vn_space = MathTex(
             r"V_n := \{ v_{\mu}: \mu \in \R^n \}",
             font_size=EQ_FONT_SIZE).next_to(title, DOWN, buff=BUFF_HALF)
-        # vn_space = shift_to(vn_space, position=layout.center_x_grid, coordinate="x")
         best_fit = best_fit_estimator.copy().next_to(vn_space, DOWN, buff=BUFF_HALF)
 
         txt_quadratic = Tex(r"Quadratic", font_size=EQ_FONT_SIZE, color=QUADRATIC_COLOR)
@@ -132,8 +117,6 @@ class OBERASlides(MySlide):
         )
 
         # -------------- convergence rate -------------- #
-        # grid, x_label, y_label, points, graphs, order, plot_group = create_convergence_plot_objects(
-        #     models=[PIECEWISE_DATA, LVIRA_DATA, OBERA_DATA], layout=layout)
         plot_group_lvira = create_convergence_plot_objects("LVIRA", layout=layout)
 
         exp_citation = Text("[A. Cohen, O. Mula, A. Somacal, ArXiv, 2024]",
@@ -150,13 +133,6 @@ class OBERASlides(MySlide):
             FadeIn(original_avg_10, original_avg_20, lvira_reconstruction_avg_10, lvira_reconstruction_avg_20,
                    ground_truth),
             FadeIn(plot_group_lvira),
-            # FadeIn(grid, x_label, y_label),
-            # Create(points["Piecewise constant"]),
-            # Create(graphs["Piecewise constant"]),
-            # Write(order["Piecewise constant"]),
-            # Create(points["LVIRA"]),
-            # Create(graphs["LVIRA"]),
-            # Write(order["LVIRA"]),
         )
 
         plot_group_obera = create_convergence_plot_objects("OBERA", layout=layout)
@@ -168,19 +144,24 @@ class OBERASlides(MySlide):
             FadeIn(obera2_reconstruction_avg_10, obera2_reconstruction_avg_20),
             FadeOut(plot_group_lvira),
             FadeIn(plot_group_obera),
-            # Create(points["OBERA"]),
-            # Create(graphs["OBERA"]),
-            # Write(order["OBERA"]),
             Write(exp_citation),
         )
 
+        # ---------- OBERA problems ---------- #
         self.next_slide()
         best_fit.set_x(0)
-        problem = Tex("Problem: long computation time", font_size=MEDIUM_FS)
+        problem = Tex("Practical problem: long computation time", font_size=MEDIUM_FS)
+        problem2 = Tex("Theoretical problem: difficult to prove $\mu_Z \leq \infty$", font_size=MEDIUM_FS)
         problem.next_to(best_fit, DOWN, buff=BUFF_ONE)
+        problem2.next_to(problem, DOWN, buff=BUFF_ONE, aligned_edge=LEFT)
+        Group(problem, problem2).set_x(0)
+
         self.play(
             self.fade_out_old_elements(),
         )
+        self.play(Write(problem2))
+
+        self.next_slide()
         self.play(Write(problem))
 
         self.next_slide()
@@ -188,4 +169,19 @@ class OBERASlides(MySlide):
             FadeIn(best_fit, target_position=problem.get_center(), scale=0.1),
         )
 
+        self.next_slide()
+        self.play(
+            Indicate(get_sub_objects(best_fit, list(range(3, 9))).copy()),
+        )
+        self.play(
+            get_sub_objects(best_fit, list(range(3, 9))).animate.set_color(RED)
+        )
+
+        self.next_slide()
+        self.play(
+            Indicate(get_sub_objects(best_fit, list(range(-6, -2))).copy()),
+        )
+        self.play(
+            get_sub_objects(best_fit, list(range(-6, -2))).animate.set_color(RED)
+        )
         return dict()

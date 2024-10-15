@@ -25,7 +25,7 @@ class TitleSlide(MySlide):
             font_size=STITLE_FS)
         self.add_to_canvas(slide_number=slide_number, main_title=main_title)
 
-        conference = Tex(r"ALEA seminar", font_size=BIG_FS)
+        conference = Tex(r"Séminaire de Mathématiques Appliquées du LMJL", font_size=BIG_FS)
         authors = Tex(r"Agust\'in Somacal", font_size=MEDIUM_FS).next_to(conference, DOWN, buff=1)
         # authors.shift(1.5 * DOWN)
         collaborators = Tex(r"Collaborators: Albert Cohen, Matthieu Dolbeault, Olga Mula", font_size=SMALL_FS)

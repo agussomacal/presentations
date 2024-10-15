@@ -26,12 +26,18 @@ near_optimality_property = MathTex(r"\|\uu-\tilde{u} \|_V \leq C \|\uu-P_{V_n} \
                                    substrings_to_isolate=[r"\tilde{u}"],
                                    tex_to_color_map={r"\tilde{u}": COLOR_APPROXIMATION},
                                    font_size=EQ_FONT_SIZE)
-get_sub_objects(near_optimality_property, [1, 10, 15]).set_color(COLOR_SOLUTION)
-get_sub_objects(near_optimality_property, [14, 13]).set_color(COLOR_LINEAR)
+get_sub_objects(near_optimality_property, [1, 10]).set_color(COLOR_SOLUTION)
+get_sub_objects(near_optimality_property, [12, 13, 14, 15]).set_color(COLOR_LINEAR)
 near_optimality_property_L1 = MathTex(r"\|\uu-\tilde{u} \|_{L^1} \leq C \|\uu-P_{V_n} \uu\|_{L^1}",
                                       substrings_to_isolate=["z", r"\tilde{u}"],
                                       tex_to_color_map={"z": COLOR_MEASUREMENTS, r"\tilde{u}": COLOR_APPROXIMATION},
                                       font_size=EQ_FONT_SIZE)
+nop_non_linear = MathTex(
+    r"\|u-\tu \|_V \leq (1+2\alpha_Z \mu_Z) \|\uu-P_{V_n} \uu\|_V + (1+2\beta \mu_Z) \|\eta\|_p",
+    font_size=EQ_FONT_SIZE)
+get_sub_objects(nop_non_linear, [1, 18, 23]).set_color(COLOR_SOLUTION)
+get_sub_objects(nop_non_linear, [20, 21, 22, 23]).set_color(COLOR_LINEAR)
+get_sub_objects(nop_non_linear, [3, 4]).set_color(COLOR_APPROXIMATION)
 
 text_continuity = Tex(r"Lipschitz continuity", font_size=EQ_FONT_SIZE, color=COLOR_SOLUTION)
 text_inverse_stability = Tex(r"Inverse stability", font_size=EQ_FONT_SIZE, color=COLOR_APPROXIMATION)
@@ -131,8 +137,8 @@ class NearOptimalitySlides(MySlide):
             height_of_img)
 
         yoda_rec_pointwise.set_x(yoda_pointwise.get_x()).set_y(yoda_rec.get_y())
-        yoda_diff_pointwise.next_to(get_sub_objects(best_fit, [-9, -1]).get_center(), DOWN, BUFF_HALF)
-        yoda_diff.next_to(get_sub_objects(nop, [0, 6]).get_center(), DOWN, BUFF_HALF)
+        yoda_diff_pointwise.next_to(get_sub_objects(best_fit, [-9, -2]).get_center(), DOWN, BUFF_HALF)
+        yoda_diff.next_to(get_sub_objects(nop, [0, 5]).get_center(), DOWN, BUFF_HALF)
 
         # -------------- PBDW vs nonlinear -------------- #
         hilbert_cond = Tex(r"\begin{itemize}"
@@ -264,12 +270,7 @@ class NearOptimalitySlides(MySlide):
         get_sub_objects(mu_def_2, [6, 8, 13, 15, 22, 27]).set_color(COLOR_APPROXIMATION)
         get_sub_objects(mu_def_2, [10, 11]).set_color(NON_LINEAR_COLOR)
 
-        nop_noise = MathTex(
-            r"\|u-\tu \|_V \leq (1+2\alpha_Z \mu_Z) \|\uu-P_{V_n} \uu\|_V + (1+2\beta \mu_Z) \|\eta\|_p",
-            font_size=EQ_FONT_SIZE).move_to(nop)
-        get_sub_objects(nop_noise, [1, 18, 23]).set_color(COLOR_SOLUTION)
-        get_sub_objects(nop_noise, [20, 21, 22, 23]).set_color(COLOR_LINEAR)
-        get_sub_objects(nop_noise, [3, 4]).set_color(COLOR_APPROXIMATION)
+        nop_noise = nop_non_linear.copy().move_to(nop)
 
         # -------------- -------------- -------------- #
         #   near optimality plot
@@ -427,13 +428,23 @@ class NearOptimalitySlides(MySlide):
 
         self.next_slide()
         self.play(
+            Indicate(get_sub_objects(nop, list(range(-6, -2)))),
+            FadeOut(get_sub_objects(nop, list(range(-6, -2))).copy(), target_position=vdot, scale=0.2),
             Create(vdot),
             Create(vtex),
+        )
+
+        self.next_slide()
+        self.play(
+            Indicate(get_sub_objects(nop, list(range(-9, 0)))),
+            FadeOut(get_sub_objects(nop, list(range(-9, 0))).copy(), target_position=line_dist, scale=0.2),
             Create(line_dist),
         )
 
         self.next_slide()
         self.play(
+            Indicate(get_sub_objects(nop, [-10])),
+            FadeOut(get_sub_objects(nop, [-10]).copy(), target_position=c_text),
             Create(circ),
             Create(line_c),
             Write(c_text)
@@ -620,4 +631,4 @@ class NearOptimalitySlides(MySlide):
 
         self.next_slide()
         self.play(Write(nop_noise), FadeOut(new_nop), FadeIn(cite_ch2),
-                  braceline_up.animate.set_x(nop_noise.get_x(direction=LEFT), direction=LEFT),)
+                  braceline_up.animate.set_x(nop_noise.get_x(direction=LEFT), direction=LEFT), )
