@@ -1,6 +1,7 @@
 # Presentations
 
-Code that I used to create my presentations using [manim](https://www.manim.community/) and [manim-slides](https://www.manim.community/plugin/manim-slides/) python packages.
+Code used to create some presentations using [manim](https://www.manim.
+community/) and [manim-slides](https://www.manim.community/plugin/manim-slides/) python packages.
 
 - **(15/10/24)** The resources for the talk given in the [Applied 
   mathematics seminar at Laboratoire de Mathématiques Jean Leray (LMJL)](https://www.math.sciences.univ-nantes.fr/exposes/3340-0) can be found in: 
