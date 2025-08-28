@@ -198,12 +198,6 @@ hide: false
 transition: slide-left
 ---
 
----
-src: ./pages/s08_02_transition.md
-hide: false
-transition: slide-left
----
-
 <!-- ======== Momentum dynamics ======== -->
 ---
 src: ./pages/s09_01_momentum_dynamics.md
@@ -236,12 +230,6 @@ hide: false
 transition: none
 ---
 
----
-src: ./pages/s10_02_toy_example_beyond_l2.md
-hide: false
-transition: slide-left
----
-
 
 <!-- ======== Momentum real example ======== -->
 ---
@@ -251,11 +239,6 @@ transition: slide-left
 layout: two-cols
 ---
 
----
-src: ./pages/s11_02_mackeyglass_sampling.md
-hide: false
-transition: none
----
 
 ---
 src: ./pages/s12_01_xor.md
@@ -264,12 +247,7 @@ transition: slide-left
 layout: two-cols
 ---
 
----
-src: ./pages/s12_02_transition.md
-hide: false
-transition: slide-left
-layout: two-cols
----
+
 
 
 

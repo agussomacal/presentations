@@ -3,35 +3,25 @@ Using momentum to **scape local minima** and **correct the biased step** of NGD.
 
 
 <div class="grid grid-cols-2 gap-30">
-
 <div>
+
+<!-- ========           ======== -->
+<!-- ======== BEYOND L2 ======== -->
+<!-- ========           ======== -->
 <h3 style="text-align: center"> 
 
 <span v-mark.square.green="-1"> Beyond $L^2$ loss </span>
 </h3> 
-
-
-
+<div class="grid grid-cols-2 gap-10">
 <!-- ======== Classification ======== -->
-<div class="grid grid-cols-2 gap-10">
+<div>
 
-$$\textbf{Classification} \\ \text{problem: KL-div}$$
-$$\cL_u(\v) = \int \v(x) \log \frac{\v(x)}{\u(x)} \dd x$$
+$$\textbf{Classification} \\\text{KL-div}$$ 
+$$\int \left[\v \log \frac{\v}{\u}\right](x) \dd x$$
 </div>
-
-<div class="grid grid-cols-2 gap-10">
-
-<!-- ======== Stochastic ======== -->
-$$\text{\textbf{Stochastic} setting}\\ \text{empirical loss}$$
-$$
-\cL_u(\vk) = \|\u-\vk\|_m^2 \\
-\frac{1}{2m} \sum_{i=1}^{m} (\u(x_{I^k_i})-\v(x_{I^k_i}))^2
-$$
-</div>
-
-<div class="grid grid-cols-2 gap-10">
-
 <!-- ======== PDE ======== -->
+<div>
+
 $$\text{\textbf{PDE} residual}$$
 $$
 \begin{aligned}
@@ -42,23 +32,42 @@ $$
 </div>
 </div>
 
-
-<div>
-<!-- ======== Local minima ======== -->
-<br></br>
+<!-- ========           ======== -->
+<!-- ======== INACURATE ======== -->
+<!-- ========           ======== -->
 <h3 style="text-align: center"> 
 
-<span v-mark.square.blue="-1"> Escape local minima </span>
+<span v-mark.square.purple="-1"> Inacurate estimation of update </span>
 </h3> 
+<div class="grid grid-cols-2 gap-10">
+<!-- ======== Stochastic ======== -->
+<div>
 
-<br></br>
+$$\text{\textbf{Stochastic} setting}\\ \text{empirical loss}$$
+$$
+\cL_u(\vk) = \|\u-\vk\|_m^2
+$$
+</div>
+<!-- ======== Inversion ======== -->
+<div>
 
-$$\frac{\partial \vp}{\partial s} = -P_{\cT_k} \LossVGrad$$
+$$\text{\textbf{Solving} NGD system}$$
+$$
+G^{-1} 
+\begin{cases}
+\xrightarrow{Penrose} V(\Sigma_{\sigma>\varepsilon})^{-1}V^T \\
+\xrightarrow{Tikhonov} (G+\varepsilon I)^{-1}
+\end{cases}
+$$
+</div>
+</div>
+</div>
 
 
-
+<div>
+<!-- ========                  ======== -->
 <!-- ======== Non linear model ======== -->
-<br></br>
+<!-- ========                  ======== -->
 <h3 style="text-align: center"> 
 
 <span v-mark.square.red="-1"> Non-linear model </span>
@@ -67,8 +76,19 @@ $$\frac{\partial \vp}{\partial s} = -P_{\cT_k} \LossVGrad$$
 <br></br>
 $$\theta_{k+1} = \theta_k -sG_k^{-1} \nabla_\theta \cL(\theta_k)$$
 $$\theta_{s} = \theta_k -\int_0^{s} G_k^{-1}(\theta_\ell) \nabla_\theta \cL(\theta_\ell)\dd \ell$$
+<br></br>
 
+<!-- ========              ======== -->
+<!-- ======== Local minima ======== -->
+<!-- ========              ======== -->
+<h3 style="text-align: center"> 
 
+<span v-mark.square.blue="-1"> Escape local minima </span>
+</h3> 
+
+<br></br>
+
+$$\frac{\partial \vp}{\partial s} = -P_{\cT_k} \LossVGrad$$
 </div>
 </div>
 

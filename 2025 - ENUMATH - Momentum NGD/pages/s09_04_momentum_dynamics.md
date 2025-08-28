@@ -35,9 +35,9 @@ $$
 $$
 P_{\cT_k}^{H_{\cL}} \LossVGrad(\vk)\\
 {\color{white}}\\
-G_k^{-1}\nabla_\theta \cL(\theta_k)\\
+(G_k^{H_\cL})^{-1}\nabla_\theta \cL(\theta_k)\\
 {\color{white}}\\
-G_k = \int \left[ \dAdp H_{\cL} \dAdp \right](x)\dd x
+G_k^{H_\cL} = \int \left[ \dAdp H_{\cL} \dAdp \right](x)\dd x
 $$
 </div>
 
