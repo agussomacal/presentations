@@ -12,7 +12,7 @@
 2. **What is momentum and when we may need it?**
 3. **How to combine momentum and natural gradient.**
     * Two toy examples
-    * Two less toy examples
+    * Three less toy examples
 
 <br>
 <br>
