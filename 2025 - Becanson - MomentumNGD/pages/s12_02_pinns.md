@@ -13,13 +13,13 @@ $$
 $$
 
 <div class="grid grid-cols-2">
-<img src="./../figures/experiments/PINN_ReactionDiffusion/approximations/NGDLineSearchSampling.png" alt="drawing" width="500" style="float: right">
-<img src="./../figures/experiments/PINN_ReactionDiffusion/approximations/MPLGLineSearchSampling.png" alt="drawing" width="500" style="float: right">
+<img src="./../figures/PINN_ReactionDiffusion/approximations/NGDLineSearchSampling.png" alt="drawing" width="500" style="float: right">
+<img src="./../figures/PINN_ReactionDiffusion/approximations/MPLGLineSearchSampling.png" alt="drawing" width="500" style="float: right">
 </div>
 
 ::right::
-<img src="./../figures/experiments/PINN_ReactionDiffusion/num_steps/LineSearchSampling.png" alt="drawing" width="300" style="float: right">
-<img src="./../figures/experiments/PINN_ReactionDiffusion/num_steps_m/LineSearchSampling.png" alt="drawing" width="300" style="float: right">
+<img src="./../figures/PINN_ReactionDiffusion/num_steps/LineSearchSampling.png" alt="drawing" width="300" style="float: right">
+<img src="./../figures/PINN_ReactionDiffusion/num_steps_m/LineSearchSampling.png" alt="drawing" width="300" style="float: right">
 
 
 

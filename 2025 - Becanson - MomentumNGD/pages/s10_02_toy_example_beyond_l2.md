@@ -27,7 +27,7 @@ $${\colorT \dd v_k^{N}} = P_{\cT_k}[\beta (\vk - {\colorTprev v_{k-1}}) -\alpha{
 
 <div class="absolute right-120px bottom-5px">
 <h3 style="color: white; text-align: center">Ghost</h3>
-<img src="./../figures/experiments/ExactSpaces/convergence/F08_TwistedLoss_0.png" alt="drawing" width="400" style="float: center">
+<img src="./../figures/ExactSpaces/convergence/F08_TwistedLoss_0.png" alt="drawing" width="400" style="float: center">
 <h3 style="color: white; text-align: center">Ghost</h3>
 </div>
 

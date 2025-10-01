@@ -6,7 +6,7 @@ Objective: approximate target function $u\in V$ by $v\in\cM\subset V$
 </div>
 
 <div class="absolute left-90px bottom-20px">
-<img src="./../figures/experiments/FunctionApproximation.png" width="300">
+<img src="./../figures/FunctionApproximation.png" width="300">
 </div>
 
 <div class="grid grid-cols-3 -pt-1 -mb-6">

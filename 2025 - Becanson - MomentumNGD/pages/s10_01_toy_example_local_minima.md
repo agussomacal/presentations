@@ -24,9 +24,9 @@ $${\colorT \dd v_k^{N}} = P_{\cT_k}[\beta (\vk - {\colorTprev v_{k-1}}) -\alpha{
 
 <div class="absolute left-30px bottom-7px">
 <div class="grid grid-cols-3">
-<img src="./../figures/experiments/ExactSpaces/parameter_space/F08_LocalMinima_0.png" alt="drawing" width="300" style="float: center">
-<img src="./../figures/experiments/ExactSpaces/functional_space/F08_LocalMinima_0.png" alt="drawing" width="300" style="float: center">
-<img src="./../figures/experiments/ExactSpaces/convergence/F08_LocalMinima_0.png" alt="drawing" width="300" style="float: center">
+<img src="./../figures/ExactSpaces/parameter_space/F08_LocalMinima_0.png" alt="drawing" width="300" style="float: center">
+<img src="./../figures/ExactSpaces/functional_space/F08_LocalMinima_0.png" alt="drawing" width="300" style="float: center">
+<img src="./../figures/ExactSpaces/convergence/F08_LocalMinima_0.png" alt="drawing" width="300" style="float: center">
 </div>
 </div>
 

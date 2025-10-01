@@ -14,25 +14,25 @@ Model (shallow NN $10$ neurons): $\vp: \R^4 \to \R$
 </div>
 
 <div class="absolute left-110px bottom-10px">
-<img src="./../figures/experiments/MackeyGlass/dataset_0.png" alt="drawing" width="250" style="float: center">
+<img src="./../figures/MackeyGlass/dataset_0.png" alt="drawing" width="250" style="float: center">
 </div>
 
 ::right::
 
 <div v-click="[0, 1]">
 <div class="absolute right-20px bottom-10px">
-<img src="./../figures/experiments/MackeyGlass/TrajectoriesMackeyGlass_ntrain500Test150_0.png" alt="drawing" width="500" style="float: right">
+<img src="./../figures/MackeyGlass/TrajectoriesMackeyGlass_ntrain500Test150_0.png" alt="drawing" width="500" style="float: right">
 </div>
 </div>
 
 <div v-click="[1, 2]">
 <div class="absolute right-20px bottom-10px">
-<img src="./../figures/experiments/MackeyGlass/TrajectoriesMackeyGlass_ntrain500Test50_0.png" alt="drawing" width="500" style="float: right">
+<img src="./../figures/MackeyGlass/TrajectoriesMackeyGlass_ntrain500Test50_0.png" alt="drawing" width="500" style="float: right">
 </div>
 </div>
 
 <div v-click="2">
 <div class="absolute right-20px bottom-10px">
-<img src="./../figures/experiments/MackeyGlass/TrajectoriesMackeyGlass_ntrain500Test500_0.png" alt="drawing" width="500" style="float: right">
+<img src="./../figures/MackeyGlass/TrajectoriesMackeyGlass_ntrain500Test500_0.png" alt="drawing" width="500" style="float: right">
 </div>
 </div>
