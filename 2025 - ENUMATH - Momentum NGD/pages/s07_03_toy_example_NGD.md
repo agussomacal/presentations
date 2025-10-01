@@ -36,9 +36,9 @@ $$
 
 <div class="absolute left-10px bottom-7px">
 <div class="grid grid-cols-3">
-<img src="./../figures/experiments/ExactSpaces/parameter_space/F03_NGD_0.png" alt="drawing" width="300" style="float: center">
-<img src="./../figures/experiments/ExactSpaces/functional_space/F03_NGD_0.png" alt="drawing" width="300" style="float: center">
-<img src="./../figures/experiments/ExactSpaces/convergence/F03_NGD_0.png" alt="drawing" width="300" style="float: center">
+<img src="./../figures/ExactSpaces/parameter_space/F03_NGD_0.png" alt="drawing" width="300" style="float: center">
+<img src="./../figures/ExactSpaces/functional_space/F03_NGD_0.png" alt="drawing" width="300" style="float: center">
+<img src="./../figures/ExactSpaces/convergence/F03_NGD_0.png" alt="drawing" width="300" style="float: center">
 </div>
 </div>
 

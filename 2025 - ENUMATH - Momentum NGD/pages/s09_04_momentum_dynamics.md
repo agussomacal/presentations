@@ -22,7 +22,7 @@ $$
 \cT_k \ni {\colorT \dd v_k^{HB}} = \beta P_{\cT_k}{\colorTprev p_{k-1}} -\alpha P_{\cT_k}^{H_{\cL}}{\colorV\nabla  \cL}(\vk)
 $$
 $$
-\cT_k \ni {\colorT \dd v_k^{N}} = \beta P_{\cT_k}(\vk - {\colorTprev v_{k-1}}) -\alpha P_{\cT_k}^{H_{\cL}}{\colorV\nabla  \cL}(\vk)
+\cT_k \ni {\colorT \dd v_k^{N}} = \beta P_{\cT_k}(\vk - {\colorTprev v_{k-1}}) -\alpha P_{\cT_k}^{H_{\cL}}{\colorV\nabla  \cL}({\color{teal} y_k})
 $$
 </div>
 

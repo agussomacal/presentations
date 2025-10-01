@@ -3,7 +3,7 @@
 theme: seriph
 # random image from a curated Unsplash collection by Anthony
 # like them? see https://unsplash.com/collections/94734566/slidev
-background: "./../figures/photos/CalanquesSurgiton.jpg"
+background: "./../figures/LagunaCreton.jpg"
 # some information about your slides (markdown enabled)
 title: Welcome to Slidev
 info: |
@@ -147,11 +147,7 @@ src: ./pages/s06_02_natural_gradient_flow.md
 hide: false
 transition: slide-left
 ---
----
-src: ./pages/s06_03_transition.md
-hide: false
-transition: slide-left
----
+
 
 <!-- ======== Toy example ======== -->
 ---
@@ -223,13 +219,6 @@ hide: false
 transition: slide-left
 ---
 
-<!-- ======== Momentum example ======== -->
----
-src: ./pages/s10_01_toy_example_local_minima.md
-hide: false
-transition: none
----
-
 
 <!-- ======== Momentum real example ======== -->
 ---
@@ -248,7 +237,34 @@ layout: two-cols
 ---
 
 
+---
+src: ./pages/s13_01_pinns.md
+hide: false
+transition: none
+layout: two-cols
+---
 
+- ======== Final slides ======== -->
+---
+hide: false
+layout: default
+---
+# Conclusion
+What is done, what is still to be done.
+
+<br></br>
+
+We saw how to build a **Natural inertial dynamics** for gradient optimization on non linear approximation manifolds.
+
+<br></br>
+
+Some directions
+
+- Step-size adaptivity
+
+- Natural inertial dynamics and linesearch
+
+- Theoretical questions: convergence? optimality?
 
 
 <!-- ======== Final slides ======== -->
@@ -264,6 +280,10 @@ layout: default
 
 <div class="grid grid-cols-2">
 <div>
+
+(2024) Schwencke N., Furtlehner C. $\text{}\\$
+(2023) Müller J., Zeinhofer M. 
+
 (2024) R. Gruhlke, A. Nouy, P. Trunschke.
 
 (2020) J. Martens.
@@ -278,6 +298,10 @@ layout: default
 </div>
 
 <div>
+
+<br></br>
+NGD and PINNs.
+
 NGD and optimal sampling.
 
 NGD Review.
