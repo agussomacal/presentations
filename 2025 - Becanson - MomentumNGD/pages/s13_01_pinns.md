@@ -7,7 +7,7 @@ $[$Schwencke N., Furtlehner C. (2024)$]$.
 $$
 \begin{aligned}
 \cL(\v) &= \|R(\v)\|^2 \\
-\cL(\v) &= \|-\epsilon \partial_{xx} v+\partial_x \v-1\|^2
+\cL(\v) &= \|-\epsilon \partial_{xx} \v+\partial_x \v-1\|^2
 \end{aligned}
 $$
 

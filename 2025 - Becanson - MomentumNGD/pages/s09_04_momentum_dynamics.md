@@ -48,7 +48,7 @@ P_{\cT_k}{\colorTprev p_{k-1}}\\
 {\color{white}}\\
 G_k^{-1}G_{k,k-1}p_{k-1}\\
 {\color{white}}\\
-G_{k,k-1} = \int \left[\left. \dAdp\right|_{\theta_k} \left. \dAdp\right|_{\theta_{k-1}} \right](x)\dd x
+G_{k,k-1} = \int \left[\left. \dAdp\right|_{\theta_k} \left. {\colorTprev \frac{\partial A}{\partial \theta}}\right|_{\theta_{k-1}} \right](x)\dd x
 $$
 </div>
 <div>

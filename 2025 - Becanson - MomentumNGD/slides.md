@@ -129,12 +129,12 @@ hide: false
 transition: none
 ---
 
+
 ---
-src: ./pages/s05_02_natural_gradient.md
+src: ./pages/s05_03_natural_gradient.md
 hide: false
 transition: slide-left
 ---
-
 
 <!-- ======== Natural gradient flow ======== -->
 ---

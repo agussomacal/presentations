@@ -15,7 +15,7 @@ $$\theta_{k+1} - \theta_k = \beta p_{k-1} -\alpha\nabla_\theta \cL_u(\theta_k)$$
 $$\theta_{k+1} - \theta_k = \beta(\theta_k - \theta_{k-1}) -\alpha\nabla_\theta \cL_u(\theta_k)$$
 </div>
 
-
+<v-click>
 <div class="grid grid-cols-2">
 
 $$
@@ -25,8 +25,10 @@ $$
 \cT_k \ni {\colorT \dd v_k} = P_{\cT_k}[\beta (\vk - {\colorMprev v_{k-1}}) -\alpha{\colorV\nabla  \cL}(\vk)]
 $$
 </div>
+</v-click>
 
 
+<v-click>
 <div class="grid grid-cols-3">
 
 $$
@@ -39,3 +41,4 @@ $$
 P_{\cT_k}(\vk - {\colorMprev v_{k-1}})\\
 $$
 </div>
+</v-click>
