@@ -1,0 +1,8 @@
+*/netlify.toml
+*/.npmrc
+*/package.json
+*/pnpm-lock.yaml
+*/vercel.json
+*/snippets
+*/node_modules
+*/components

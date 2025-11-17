@@ -45,3 +45,26 @@ Based on papers:
   pp. 48-67 (2023)](https://www.esaim-proc.org/10.1051/proc/202373048) | [code](https://github.com/agussomacal/ConDiPINN) |
 6. _State Estimation of Urban Air Pollution with Statistical, Physical, and Super-Learning Graph Models_ | [arXiv](http://arxiv.org/abs/2402.02812) | [Advances in Computational Science and Engineering 2, no. 2, 130–51 (2024)](https://doi.org/10.3934/acse.2024008) | [code](https://github.com/agussomacal/CityPollutionModeling) |
 ___
+
+To start the slide show:
+
+- `pnpm install`
+- `pnpm dev`
+- visit <http://localhost:3030>
+
+Edit the [slides.md](./slides.md) to see the changes.
+
+Learn more about Slidev at the [documentation](https://sli.dev/).
+
+Create a new project:
+```bash
+pnpm create slidev
+```
+Then add figures, slides, etc. To open each time use:
+```bash
+pnpm slidev --open
+```
+Finally export using the browser IDE (recommended) or via:
+```bash
+pnpm slidev export --with-clicks
+```
