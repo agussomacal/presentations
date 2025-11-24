@@ -74,8 +74,8 @@ $$
 </h3> 
 
 <br></br>
-$$\theta_{k+1} = \theta_k -sG_k^{-1} \nabla_\theta \cL(\theta_k)$$
-$$\theta_{s} = \theta_k -\int_0^{s} G_k^{-1}(\theta_\ell) \nabla_\theta \cL(\theta_\ell)\dd \ell$$
+$$\theta_{k+1} = \theta_k -sG_k^{-1} \nabla_\theta L(\theta_k)$$
+$$\theta_{s} = \theta_k -\int_0^{s} G_k^{-1}(\theta_\ell) \nabla_\theta L(\theta_\ell)\dd \ell$$
 <br></br>
 
 <!-- ========              ======== -->

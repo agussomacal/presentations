@@ -23,9 +23,9 @@ mdc: true
 #  ogImage: https://cover.sli.dev
 ---
 
-# Natural gradient descent with momentum
+# Natural gradient descent with momentum for physics informed learning
 
-Séminaire d'Analyse Numérique et Calcul Scientifique $\\$ Beçanson, 2025 $\\$
+MORTech, 2025 $\\$
 
 **Agustín Somacal**
 
@@ -39,8 +39,10 @@ Laboratoire de Mathématiques Jean Leray
 The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
 -->
 
+<!--
+======== Outline ========
+-->
 
-<!-- ======== Outline ======== -->
 ---
 src: ./pages/s01_outline.md
 hide: false
@@ -210,14 +212,9 @@ transition: none
 ---
 src: ./pages/s09_03_momentum_dynamics.md
 hide: false
-transition: none
----
-
----
-src: ./pages/s09_04_momentum_dynamics.md
-hide: false
 transition: slide-left
 ---
+
 
 <!-- ======== Momentum example ======== -->
 ---
@@ -229,27 +226,29 @@ transition: none
 
 <!-- ======== Momentum real example ======== -->
 ---
-src: ./pages/s11_01_mackeyglass.md
-hide: false
-transition: slide-left
-layout: two-cols
----
-
-
----
-src: ./pages/s12_01_xor.md
-hide: false
-transition: slide-left
-layout: two-cols
----
-
-
----
-src: ./pages/s13_01_pinns.md
+src: ./pages/s11_01_pinns.md
 hide: false
 transition: none
 layout: two-cols
 ---
+
+---
+src: ./pages/s12_01_pinns_nolin.md
+hide: false
+transition: none
+layout: two-cols
+---
+
+
+---
+src: ./pages/s13_01_xor.md
+hide: false
+transition: slide-left
+layout: two-cols
+---
+
+
+
 
 - ======== Final slides ======== -->
 ---
@@ -268,8 +267,6 @@ We saw how to build a **Natural inertial dynamics** for gradient optimization on
 Some directions
 
 - Step-size adaptivity
-
-- Natural inertial dynamics and linesearch
 
 - Theoretical questions: convergence? optimality?
 
@@ -324,5 +321,3 @@ Heavy Ball acceleration.
 </div>
 
 <div style="text-align: center">  <PoweredBySlidev mt-10 /> </div>
-
-

@@ -7,7 +7,7 @@ Natural gradient descent.
 
 $$
 \u \in L^2([-1, 1]) \\
-\cL_u(\v) = \frac 1 2 \|\u-\v\|^2 \\
+\cL_\u(\v) = \frac 1 2 \|\u-\v\|^2 \\
 \begin{align*}
 \vp(x) = {\colorM A(\theta)}(x) &= \theta^T {\color{red}B} {\colorV \Phi}(x)\\
 &= \theta^T {\color{red}B}
@@ -36,9 +36,9 @@ $$
 
 <div class="absolute left-10px bottom-7px">
 <div class="grid grid-cols-3">
-<img src="./../figures/ExactSpaces/parameter_space/F03_NGD_0.png" alt="drawing" width="300" style="float: center">
-<img src="./../figures/ExactSpaces/functional_space/F03_NGD_0.png" alt="drawing" width="300" style="float: center">
-<img src="./../figures/ExactSpaces/convergence/F03_NGD_0.png" alt="drawing" width="300" style="float: center">
+<img src="./../figures/ExactSpaces/parameter_space/F03_NGD.png" alt="drawing" width="300" style="float: center">
+<img src="./../figures/ExactSpaces/functional_space/F03_NGD.png" alt="drawing" width="300" style="float: center">
+<img src="./../figures/ExactSpaces/convergence/F03_NGD.png" alt="drawing" width="300" style="float: center">
 </div>
 </div>
 

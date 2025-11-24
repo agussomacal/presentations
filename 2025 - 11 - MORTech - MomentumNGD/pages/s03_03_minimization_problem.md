@@ -1,4 +1,3 @@
-
 # Minimization problem
 Objective: approximate $u\in V$ by $v\in\cM$.
 
@@ -53,7 +52,7 @@ $$
 \end{aligned}
 $$
 $$
-\cL_\u({\colorM A(\theta)})=(\cL_\u \circ A) (\theta) =: \cL(\theta) $$
+\cL_\u({\colorM A(\theta)})=(\cL_\u \circ A) (\theta) =: L(\theta) $$
 
 </div>
 </div>

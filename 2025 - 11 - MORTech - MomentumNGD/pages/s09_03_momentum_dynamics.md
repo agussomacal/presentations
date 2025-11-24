@@ -11,8 +11,8 @@ From momentum in parameter space to functional space.
 
 <div class="grid grid-cols-2">
 
-$$\theta_{k+1} - \theta_k = \beta p_{k-1} -\alpha\nabla_\theta \cL_u(\theta_k)$$
-$$\theta_{k+1} - \theta_k = \beta(\theta_k - \theta_{k-1}) -\alpha\nabla_\theta \cL_u(\theta_k)$$
+$$\theta_{k+1} - \theta_k = \beta p_{k-1} -\alpha\nabla_\theta L(\theta_k)$$
+$$\theta_{k+1} - \theta_k = \beta(\theta_k - \theta_{k-1}) -\alpha\nabla_\theta L(\theta_k)$$
 </div>
 
 

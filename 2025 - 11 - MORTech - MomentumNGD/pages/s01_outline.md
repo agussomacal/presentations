@@ -1,4 +1,3 @@
-
 # Outline
 
 <br>
@@ -11,13 +10,14 @@
     - Toy examples to gain intuition.
 2. **What is momentum and when we may need it?**
 3. **How to combine momentum and natural gradient.**
-    * Two toy examples
-    * Three less toy examples
+    * Some toy examples
+    * Some less toy examples
 
 <br>
 <br>
 
-
-<!-- <div class="absolute right-10px bottom-140px">
+<!--
+<div class="absolute right-10px bottom-140px">
 <img src="./../figures/photos/CalanquesSurgiton.jpg" width="380">
-</div> -->
+</div>
+-->

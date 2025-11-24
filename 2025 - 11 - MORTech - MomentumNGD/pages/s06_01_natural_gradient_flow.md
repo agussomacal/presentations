@@ -4,7 +4,7 @@
 $$
 \begin{aligned}
 \rho(\theta, \theta_k)=\|\theta-\theta_k\|_{G}^2 \quad \quad \quad \longrightarrow \quad \quad \quad
-\theta = \theta_k-sG^{-1}\nabla\cL(\theta_k) 
+\theta = \theta_k-sG^{-1}\nabla_\theta L(\theta_k) 
 \end{aligned}
 $$
 ____
@@ -14,7 +14,7 @@ ____
 
 $$\text{Preconditioned gradient flow} \\ \text{in \textbf{parameter space}}$$
 
-$$\frac{\partial \theta}{\partial s} = -M^{-1} \nabla_\theta \cL$$
+$$\frac{\partial \theta}{\partial s} = -M^{-1} \nabla_\theta L$$
 
 </div>
 </div>
@@ -24,7 +24,7 @@ $$\frac{\partial \theta}{\partial s} = -M^{-1} \nabla_\theta \cL$$
 $${1|1,2|all}
 \begin{aligned}
 \frac{\partial \vp}{\partial s} = \frac{\partial \vp}{\partial \theta} \frac{\partial \theta}{\partial s}
-=\dAdp^T M^{-1} \nabla_\theta \cL
+=\dAdp^T M^{-1} \nabla_\theta L
 &=-\dAdp^T M^{-1} \Braket{\LossVGrad, \dAdp}_V\\
 &=-\left(G^{-\frac 1 2} \dAdp\right)^T G^{\frac 1 2} M^{-1}G^{\frac 1 2}  \Braket{\LossVGrad, G^{-\frac 1 2}\dAdp}_V \\
 &=-{\colorT E}^T G^{\frac 1 2} M^{-1}G^{\frac 1 2}  \Braket{\LossVGrad, {\colorT E}}_V
@@ -43,5 +43,3 @@ $$
 \end{aligned}
 $$
 </div>
-
-

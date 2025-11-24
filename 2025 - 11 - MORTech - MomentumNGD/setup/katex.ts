@@ -29,7 +29,7 @@ export default defineKatexSetup(() => {
     "\\vp": "{\\colorM v_{\\params}}",
     "\\vk": "{\\colorM v_{k}}",
     "\\vkprev": "{\\colorTprev v_{k-1}}",
-    "\\dLdpj": "\\frac{\\partial \\cL}{\\partial \\params_j}",
+    "\\dLdpj": "\\frac{\\partial L}{\\partial \\params_j}",
     "\\dAdpi": "{\\colorT \\frac{\\partial A}{\\partial \\params_i}}",
     "\\dAdpj": "{\\colorT \\frac{\\partial A}{\\partial \\params_j}}",
     "\\dAdp": "{\\colorT \\frac{\\partial A}{\\partial \\params}}",
